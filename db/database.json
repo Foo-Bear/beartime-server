@@ -1,0 +1,436 @@
+{
+  "treeroot": [{
+      "key_name": "1-000",
+      "name": "Homeroom",
+      "shour": 7,
+      "smin": 50,
+      "ehour": 7,
+      "emin": 55,
+      "day": 1
+    }, {
+      "key_name": "1-010",
+      "name": "Block 1",
+      "shour": 8,
+      "smin": 0,
+      "ehour": 8,
+      "emin": 45,
+      "day": 1
+    }, {
+      "key_name": "1-020",
+      "name": "Block 2",
+      "shour": 8,
+      "smin": 50,
+      "ehour": 9,
+      "emin": 35,
+      "day": 1
+    }, {
+      "key_name": "1-030",
+      "name": "Tutorial",
+      "shour": 9,
+      "smin": 40,
+      "ehour": 10,
+      "emin": 15,
+      "day": 1
+    }, {
+      "key_name": "1-040",
+      "name": "Block 3",
+      "shour": 10,
+      "smin": 20,
+      "ehour": 11,
+      "emin": 5,
+      "day": 1
+    },
+
+    {
+      "key_name": "1-051",
+      "name": "1st Lunch",
+      "shour": 11,
+      "smin": 10,
+      "ehour": 11,
+      "emin": 45,
+      "day": 1
+    }, {
+      "key_name": "1-051",
+      "name": "Block 4B",
+      "shour": 11,
+      "smin": 45,
+      "ehour": 12,
+      "emin": 30,
+      "day": 1
+    }, {
+      "key_name": "1-052",
+      "name": "Block 4A",
+      "shour": 11,
+      "smin": 10,
+      "ehour": 11,
+      "emin": 55,
+      "day": 1
+    }, {
+      "key_name": "1-052",
+      "name": "2nd Lunch",
+      "shour": 11,
+      "smin": 55,
+      "ehour": 12,
+      "emin": 30,
+      "day": 1
+    }, {
+      "key_name": "1-060",
+      "name": "Block 5",
+      "shour": 12,
+      "smin": 35,
+      "ehour": 13,
+      "emin": 20,
+      "day": 1
+    }, {
+      "key_name": "1-070",
+      "name": "Block 6",
+      "shour": 13,
+      "smin": 25,
+      "ehour": 14,
+      "emin": 10,
+      "day": 1
+    }, {
+      "key_name": "1-080",
+      "name": "Block 7",
+      "shour": 14,
+      "smin": 15,
+      "ehour": 15,
+      "emin": 0,
+      "day": 1
+    }, {
+      "key_name": "2-000",
+      "name": "Homeroom",
+      "shour": 7,
+      "smin": 50,
+      "ehour": 7,
+      "emin": 55,
+      "day": 2
+    }, {
+      "key_name": "2-010",
+      "name": "Block 2",
+      "shour": 8,
+      "smin": 0,
+      "ehour": 9,
+      "emin": 5,
+      "day": 2
+    }, {
+      "key_name": "2-020",
+      "name": "Assembly",
+      "shour": 9,
+      "smin": 10,
+      "ehour": 9,
+      "emin": 45,
+      "day": 2
+    }, {
+      "key_name": "2-030",
+      "name": "Block 4",
+      "shour": 9,
+      "smin": 50,
+      "ehour": 10,
+      "emin": 55,
+      "day": 2
+    }, {
+      "key_name": "2-041",
+      "name": "1st Lunch",
+      "shour": 11,
+      "smin": 0,
+      "ehour": 11,
+      "emin": 35,
+      "day": 2
+    }, {
+      "key_name": "2-041",
+      "name": "Block 3B",
+      "shour": 11,
+      "smin": 35,
+      "ehour": 12,
+      "emin": 40,
+      "day": 2
+    }, {
+      "key_name": "2-042",
+      "name": "Block 3A",
+      "shour": 11,
+      "smin": 0,
+      "ehour": 12,
+      "emin": 5,
+      "day": 2
+    }, {
+      "key_name": "2-042",
+      "name": "2nd Lunch",
+      "shour": 12,
+      "smin": 5,
+      "ehour": 12,
+      "emin": 40,
+      "day": 2
+    }, {
+      "key_name": "2-050",
+      "name": "Block 7",
+      "shour": 12,
+      "smin": 45,
+      "ehour": 13,
+      "emin": 50,
+      "day": 2
+    }, {
+      "key_name": "2-060",
+      "name": "Block 6",
+      "shour": 13,
+      "smin": 55,
+      "ehour": 15,
+      "emin": 0,
+      "day": 2
+    }, {
+      "key_name": "3-000",
+      "name": "Homeroom",
+      "shour": 8,
+      "smin": 20,
+      "ehour": 8,
+      "emin": 25,
+      "day": 3
+    }, {
+      "key_name": "3-010",
+      "name": "Block 1",
+      "shour": 8,
+      "smin": 30,
+      "ehour": 9,
+      "emin": 35,
+      "day": 3
+    }, {
+      "key_name": "3-020",
+      "name": "Advisory",
+      "shour": 9,
+      "smin": 40,
+      "ehour": 10,
+      "emin": 10,
+      "day": 3
+    }, {
+      "key_name": "3-030",
+      "name": "Block 2",
+      "shour": 10,
+      "smin": 15,
+      "ehour": 11,
+      "emin": 20,
+      "day": 3
+    },
+
+    {
+      "key_name": "3-041",
+      "name": "1st Lunch",
+      "shour": 11,
+      "smin": 25,
+      "ehour": 12,
+      "emin": 0,
+      "day": 3
+    }, {
+      "key_name": "3-041",
+      "name": "Block 5B",
+      "shour": 12,
+      "smin": 0,
+      "ehour": 13,
+      "emin": 5,
+      "day": 3
+    }, {
+      "key_name": "3-042",
+      "name": "Block 5A",
+      "shour": 11,
+      "smin": 25,
+      "ehour": 12,
+      "emin": 30,
+      "day": 3
+    }, {
+      "key_name": "3-042",
+      "name": "2nd Lunch",
+      "shour": 12,
+      "smin": 30,
+      "ehour": 13,
+      "emin": 5,
+      "day": 3
+    }, {
+      "key_name": "3-050",
+      "name": "TASC",
+      "shour": 13,
+      "smin": 10,
+      "ehour": 13,
+      "emin": 50,
+      "day": 3
+    }, {
+      "key_name": "3-060",
+      "name": "Block 6",
+      "shour": 13,
+      "smin": 55,
+      "ehour": 15,
+      "emin": 0,
+      "day": 3
+    }, {
+      "key_name": "4-000",
+      "name": "Homeroom",
+      "shour": 7,
+      "smin": 50,
+      "ehour": 7,
+      "emin": 55,
+      "day": 4
+    }, {
+      "key_name": "4-010",
+      "name": "Block 3",
+      "shour": 8,
+      "smin": 0,
+      "ehour": 9,
+      "emin": 5,
+      "day": 4
+    }, {
+      "key_name": "4-020",
+      "name": "Assembly",
+      "shour": 9,
+      "smin": 10,
+      "ehour": 9,
+      "emin": 45,
+      "day": 4
+    }, {
+      "key_name": "4-030",
+      "name": "Block 1",
+      "shour": 9,
+      "smin": 50,
+      "ehour": 10,
+      "emin": 55,
+      "day": 4
+    },
+
+    {
+      "key_name": "4-041",
+      "name": "1st Lunch",
+      "shour": 11,
+      "smin": 0,
+      "ehour": 11,
+      "emin": 35,
+      "day": 4
+    }, {
+      "key_name": "4-041",
+      "name": "Block 4B",
+      "shour": 11,
+      "smin": 35,
+      "ehour": 12,
+      "emin": 40,
+      "day": 4
+    }, {
+      "key_name": "4-042",
+      "name": "Block 4A",
+      "shour": 11,
+      "smin": 0,
+      "ehour": 12,
+      "emin": 5,
+      "day": 4
+    }, {
+      "key_name": "4-042",
+      "name": "2nd Lunch",
+      "shour": 12,
+      "smin": 5,
+      "ehour": 12,
+      "emin": 40,
+      "day": 4
+    }, {
+      "key_name": "4-050",
+      "name": "Block 5",
+      "shour": 12,
+      "smin": 45,
+      "ehour": 13,
+      "emin": 50,
+      "day": 4
+    }, {
+      "key_name": "4-060",
+      "name": "Block 7",
+      "shour": 13,
+      "smin": 55,
+      "ehour": 15,
+      "emin": 0,
+      "day": 4
+    }, {
+      "key_name": "5-000",
+      "name": "Homeroom",
+      "shour": 8,
+      "smin": 20,
+      "ehour": 8,
+      "emin": 25,
+      "day": 5
+    }, {
+      "key_name": "5-010",
+      "name": "Block 2",
+      "shour": 8,
+      "smin": 30,
+      "ehour": 9,
+      "emin": 15,
+      "day": 5
+    }, {
+      "key_name": "5-020",
+      "name": "Block 1",
+      "shour": 9,
+      "smin": 20,
+      "ehour": 10,
+      "emin": 5,
+      "day": 5
+    }, {
+      "key_name": "5-030",
+      "name": "Block 3",
+      "shour": 10,
+      "smin": 10,
+      "ehour": 10,
+      "emin": 55,
+      "day": 5
+    },
+
+    {
+      "key_name": "5-041",
+      "name": "1st Lunch",
+      "shour": 11,
+      "smin": 0,
+      "ehour": 11,
+      "emin": 45,
+      "day": 5
+    }, {
+      "key_name": "5-041",
+      "name": "Block 4B",
+      "shour": 11,
+      "smin": 45,
+      "ehour": 12,
+      "emin": 30,
+      "day": 5
+    }, {
+      "key_name": "5-042",
+      "name": "Block 4A",
+      "shour": 11,
+      "smin": 0,
+      "ehour": 11,
+      "emin": 45,
+      "day": 5
+    }, {
+      "key_name": "5-042",
+      "name": "2nd Lunch",
+      "shour": 11,
+      "smin": 45,
+      "ehour": 12,
+      "emin": 30,
+      "day": 5
+    }, {
+      "key_name": "5-050",
+      "name": "Block 6",
+      "shour": 12,
+      "smin": 35,
+      "ehour": 13,
+      "emin": 20,
+      "day": 5
+    }, {
+      "key_name": "5-060",
+      "name": "Block 7",
+      "shour": 13,
+      "smin": 25,
+      "ehour": 14,
+      "emin": 10,
+      "day": 5
+    }, {
+      "key_name": "5-070",
+      "name": "Block 5",
+      "shour": 14,
+      "smin": 15,
+      "ehour": 15,
+      "emin": 0,
+      "day": 5
+    }
+  ]
+}

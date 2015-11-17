@@ -1,0 +1,23 @@
+{
+  "name": "bearserver",
+  "version": "1.0.0",
+  "description": "A modular server system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node modules/alerts.js"
+  },
+  "author": "Saji Champlin",
+  "license": "GNU",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "countdown": "^2.6.0",
+    "express": "^4.13.3",
+    "ioredis": "^1.8.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "moment-countdown": "0.0.3",
+    "node-schedule": "^0.2.9",
+    "underscore": "^1.8.3"
+  }
+}
