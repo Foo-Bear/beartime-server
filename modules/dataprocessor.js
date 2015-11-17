@@ -5,14 +5,15 @@ var moment = require('moment'); //date/time thing
 var scheduler = require('node-schedule'); // autoupdater
 var _ = require('underscore'); // hurray we know what this means
 // Connect to the redis server
-
 var redis = new ioredis(6379, 'jspamc.homelinux.com');
-redis.on('error', function(err) { throw err; });
-
+redis.on('error', function(err) {
+  throw err;
+});
 var redislistener = new ioredis(6379, 'jspamc.homelinux.com');
-redislistener.on('error', function(err) {throw err;} );
+redislistener.on('error', function(err) {
+  throw err;
+});
 redislistener.subscribe('dataprocessor');
-
 // Define functions
 var today = [],
   currentClass = [],
@@ -28,9 +29,7 @@ var gettoday = function() {
     }
   });
 };
-
 gettoday(); // We should call this ASAP
-
 var isnow = function() { // determine current class
   if (today !== "No School") {
     currentClass = _.filter(today, function(item) {
@@ -79,8 +78,6 @@ var minutejob = scheduler.scheduleJob('0 * * * * *', function() { //called every
 minutejob.invoke();
 redislistener.on('message', function(channel, message) {
   if (message == 'update') {
-    console.log('Got an update request from the Redis Channel');
-    dayjob.invoke();
     minutejob.invoke();
   }
 });
