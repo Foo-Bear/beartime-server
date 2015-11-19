@@ -1,0 +1,22 @@
+{
+  "apps" : [{
+    // dbman
+    "name"        : "api-dbman",
+    "script"      : "modules/dbman.js",
+    "watch"       : true,
+    "cwd"	  : "modules/"
+  },{
+    // web api
+    "name"       : "api-frontend",
+    "script"     : "modules/frontend.js",
+    "instances"  : 4,
+    "exec_mode"  : "cluster_mode",
+    "watch"       : true 
+  },{
+    // Dataprocessor
+    "name"	 : "api-dataprocessor",
+    "script"	 : "modules/dataprocessor.js",
+    "watch"      : true,
+    "cwd"	 : "modules/"
+  }]
+}
