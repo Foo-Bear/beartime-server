@@ -11,11 +11,11 @@
   "license": "GNU",
   "dependencies": {
     "body-parser": "^1.14.1",
+    "debug": "^2.2.0",
     "express": "^4.13.3",
-    "ioredis": "^1.8.0",
+    "ioredis": "^1.11.0",
     "moment": "^2.10.6",
     "node-schedule": "^0.2.9",
-    "pm2": "^0.15.10",
     "underscore": "^1.8.3"
   }
 }
