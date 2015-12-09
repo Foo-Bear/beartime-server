@@ -5,9 +5,9 @@ var moment = require('moment'); //date/time thing
 var scheduler = require('node-schedule'); // autoupdater
 var underscore = require('underscore'); // hurray we know what this means
 // Connect to the redis server
-var redis = new ioredis(6379, 'jspamc.homelinux.com');
+var redis = new ioredis(6379, 'localhost');
 redis.on('error', function(err) {throw err;});
-var redislistener = new ioredis(6379, 'jspamc.homelinux.com');
+var redislistener = new ioredis(6379, 'localhost');
 redislistener.on('error', function(err) {
   throw err;
 });
@@ -40,7 +40,7 @@ var isnow = function() { // determine current class
 var isnext = function() {
   if (today !== "No School") {
     var upcoming = underscore.filter(today, function(item) {
-      return moment().isBefore(moment({h:item.shour}));
+      return moment().isBefore(moment({h:item.shour, m:item.smin}));
     });
     nextClass = upcoming.slice(0, currentClass.length);
     if (nextClass.length >= 1) redis.set('nextclass', JSON.stringify(nextClass));

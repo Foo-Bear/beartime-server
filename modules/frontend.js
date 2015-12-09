@@ -13,7 +13,7 @@ console.log('Loaded Dependencies');
 // Connect to the redis server
 console.log('Connecting to the Redis Server');
 var redis = new ioredis({
-  host: 'jspamc.homelinux.com'
+  host: 'localhost'
 });
 redis.on('connect', function(result) {
   console.log("Connected to redis");
@@ -21,7 +21,7 @@ redis.on('connect', function(result) {
 redis.on('error', function(result) {
   throw result;
 });
-var redislistener = new ioredis(6379, 'jspamc.homelinux.com');
+var redislistener = new ioredis(6379, 'localhost');
 redislistener.on('connect', function(result) {
   console.log("Subscriber connected");
 });
