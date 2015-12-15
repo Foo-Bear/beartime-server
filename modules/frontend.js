@@ -1,5 +1,5 @@
 // The Frontend of the API: ties everything together
-// make sure to add all new features here when you extend the module
+// make sure to add all new features here when you extend the system
 
 console.log('Starting Frontend...');
 

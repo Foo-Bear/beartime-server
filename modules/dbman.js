@@ -53,6 +53,7 @@ var parser = function(db) {
     redis.set('today', JSON.stringify(today)); // return today defaults
   }
   redis.set('schedule', JSON.stringify(db));
+  redis.publish('specials', 'update');
 };
 
 // run every day
