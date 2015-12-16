@@ -26,9 +26,9 @@ append to array, push array to special on redis
 dbman will read specials and see if any date matches
 if date matches, send instead of regular planned schedule
 */
-var redis = new ioredis(6379, 'localhost');
+var redis = new ioredis(6379, 'bearstatusapi.localtunnel.me');
 redis.on('error', function(err) {throw err;});
-var redislistener = new ioredis(6379, 'localhost');
+var redislistener = new ioredis(6379, 'bearstatusapi.localtunnel.me');
 redislistener.on('error', function(err) {
   throw err;
 });
@@ -36,11 +36,11 @@ redislistener.subscribe('specials');
 
 redislistener.on('message', function (channel, message) {
   console.log("got message");
-  if (true) {
-    console.log("got a special");
-    var prevspecials = redis.get('specials');
-    var currentspecials = prevspecials.treeroot.push(message);
-    console.log(JSON.stringify(currentspecials));
-    redis.set('specials', JSON.stringify(currentspecials));
-  }
+  redis.get('specials', function (err, res) {
+    var specials = JSON.parse(res);
+    if (IsJsonString(message)) {
+      var newspecials = specials.push(message);
+      redis.set('specials', newspecials);
+    }
+  });
 });
