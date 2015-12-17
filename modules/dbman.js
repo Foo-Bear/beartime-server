@@ -45,7 +45,11 @@ var parser = function(db) {
   // next we see if there is any specials today
   var todaySpecials;
   redis.get('specials', function (err, res) {
-    todaySpecials = underscore.find(res, function(item){ return moment().isSame(moment(item.date), 'day');});
+    console.log('DEBUG: getting specials');
+    todaySpecials = underscore.find(res, function(item){
+      console.log("item " + item.day);
+      return moment().isSame(moment(item.date), 'day');
+    });
   });
   console.log(todaySpecials);
   //after we have done that we check which to return
