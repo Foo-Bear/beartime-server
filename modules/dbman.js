@@ -7,6 +7,7 @@ var ioredis = require('ioredis'); // redis clients
 var fs = require('fs'); // filesystem
 var moment = require('moment'); //date stime thing
 var scheduler = require('node-schedule'); // autoupdater
+var underscore = require('underscore');
 console.log('Loaded Dependencies');
 // Connect to the redis server
 console.log('Connecting to the Redis Server');
@@ -37,14 +38,13 @@ var update = function() {
 
 var parser = function(db) {
   console.log('dbman: Parsing the Database Files');
-  redis.publish('main', 'Parsing Physical Database');
   db = db || basejson.treeroot; // take a db or default to the basejson
-  var today = []; // today is an array filled with class objects that are today.
-  db.forEach(function(currclass) {
-    if (moment().isSame(moment().day(currclass.day), 'day')) {
-      // if today is the same day of the week as currclass.day
-      today.push(currclass); //add that class object to today's array of classes.
-    }
+  var today = underscore.filter(db, function(item) {
+    return moment().isSame(moment().day(item.day), 'day');
+  });
+  // next we see if there is any specials today
+  redis.get('specials', function (err, res) {
+    var even = underscore.find(res, function(item){ return moment().isSame(moment(item.date), 'day');});
   });
   //after we have done that we check which to return
   if (today.length === 0) {

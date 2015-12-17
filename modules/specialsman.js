@@ -37,15 +37,13 @@ redislistener.subscribe('specials');
 redislistener.on('message', function (channel, message) {
   console.log("got message");
   redis.get('specials', function (err, res) {
-    console.log('RES IS ' + JSON.parse(res));
     var specials = JSON.parse(res);
-    //console.log("current things " + res);
     if (IsJsonString(message)) {
       console.log("got a new special");
-      if (Array.isArray(specials) == false) {specials = []; console.log("specials is bad");};
+      if (Array.isArray(specials) === false) {specials = []; console.log("specials is bad, restarting");}
       specials.push(JSON.parse(message));
-      console.log("new specials list is " + specials); 
+      console.log("new specials list is " + specials);
       redis.set('specials', JSON.stringify(specials));
-    } else {console.log("message invalid json")}
+    } else {console.log("message invalid json");}
   });
 });
