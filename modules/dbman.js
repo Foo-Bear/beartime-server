@@ -47,8 +47,9 @@ var parser = function(db) {
   redis.get('specials', function (err, res) {
     console.log('DEBUG: getting specials ' + res);
     todaySpecials = underscore.find(res, function(item){
-      console.log("item " + item.day);
-      return moment().isSame(moment(item.date), 'day');
+      var schedule_special = JSON.parse(item);
+      console.log("item " + schedule_special.day);
+      return moment().isSame(moment(schedule_special.date), 'day');
     });
   });
   console.log(todaySpecials);
