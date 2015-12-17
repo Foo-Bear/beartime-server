@@ -43,9 +43,11 @@ var parser = function(db) {
     return moment().isSame(moment().day(item.day), 'day');
   });
   // next we see if there is any specials today
+  var todaySpecials;
   redis.get('specials', function (err, res) {
-    var even = underscore.find(res, function(item){ return moment().isSame(moment(item.date), 'day');});
+    todaySpecials = underscore.find(res, function(item){ return moment().isSame(moment(item.date), 'day');});
   });
+  console.log(todaySpecials);
   //after we have done that we check which to return
   if (today.length === 0) {
     redis.set('today', "No School");
