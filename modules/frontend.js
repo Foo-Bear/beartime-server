@@ -103,9 +103,8 @@ app.get('/remainingtime', function(req, res) {
 
 app.post('/inputschedule', jsonParser, function(req, res) {
   if (!req.body) return res.sendStatus(400);
-  redis.set('inputschedule', req.body.treeroot);
-  console.log(JSON.stringify(req.body.treeroot));
-  redis.publish('specialsman', 'update');
+  console.log(JSON.stringify(req.body));
+  redis.publish('specials', JSON.stringify(req.body));
   res.sendStatus(200);
 });
 
