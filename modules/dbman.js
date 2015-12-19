@@ -45,21 +45,25 @@ var parser = function(db) {
   // next we see if there is any specials today
   var todaySpecials;
   redis.get('specials', function (err, res) {
-    console.log('DEBUG: getting specials ' + JSON.parse(res));
+    console.log('DEBUG: getting specials');
     todaySpecials = underscore.find(JSON.parse(res), function(item){
       console.log("item " + item.date);
       return moment().isSame(moment(item.date), 'day');
     });
+    console.log(todaySpecials.schedule);
+
+
+    // then we check which to return
+    // we do it in here so that it is a promise 
+    if (today.length === 0 && todaySpecials.schedule.length === 0) { //if there is nothing
+      redis.set('today', "No School");
+    } else if (todaySpecials.schedule.length > 0) { //otherwise if there is a special schedule
+      redis.set('today', JSON.stringify(todaySpecials.schedule)); // return today defaults
+    } else {
+      redis.set('today', JSON.stringify(today));
+    }
+    redis.set('schedule', JSON.stringify(db));
   });
-  console.log(todaySpecials);
-  //after we have done that we check which to return
-  if (today.length === 0) {
-    redis.set('today', "No School");
-  } else { //otherwise if it is false
-    redis.set('today', JSON.stringify(today)); // return today defaults
-  }
-  redis.set('schedule', JSON.stringify(db));
-  redis.publish('specials', 'update');
 };
 
 // run every day
