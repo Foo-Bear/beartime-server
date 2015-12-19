@@ -50,14 +50,14 @@ var parser = function(db) {
       console.log("item " + item.date);
       return moment().isSame(moment(item.date), 'day');
     });
-    console.log(todaySpecials.schedule);
+    //console.log(todaySpecials.schedule);
 
 
     // then we check which to return
     // we do it in here so that it is a promise 
-    if (today.length === 0 && todaySpecials.schedule.length === 0) { //if there is nothing
+    if (today.length === 0 && typeof todaySpecials === "undefined") { //if there is nothing
       redis.set('today', "No School");
-    } else if (todaySpecials.schedule.length > 0) { //otherwise if there is a special schedule
+    } else if (typeof todaySpecials !== "undefined") { //otherwise if there is a special schedule
       redis.set('today', JSON.stringify(todaySpecials.schedule)); // return today defaults
     } else {
       redis.set('today', JSON.stringify(today));
