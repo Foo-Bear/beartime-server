@@ -22,8 +22,12 @@ var today,
 var gettoday = function() {
   redis.get('today', function(err, data) {
     if (err) throw err;
-    today = JSON.parse(data);
-    // today = "No School";
+    if (data === "No School") {
+      today = "No School"; 
+    } else {
+      today = JSON.parse(data);
+    }    
+// today = "No School";
   });
 };
 gettoday(); // We should call this ASAP

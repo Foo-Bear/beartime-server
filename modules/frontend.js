@@ -99,11 +99,23 @@ app.get('/remainingtime', function(req, res) {
   console.log("REQUEST: remainingtime");
 });
 
+app.get('/specialschedule', function(req, res) {
+  redis.get('specials', function(err, result) {
+    if (err) {
+      res.send(err);
+      throw err;
+    } else {
+      res.send(result);
+    }
+  });
+  console.log("REQUEST: specials");
+});
+
 // end get commands, start post commands
 
 app.post('/inputschedule', jsonParser, function(req, res) {
   if (!req.body) return res.sendStatus(400);
-  console.log(JSON.stringify(req.body));
+  console.log('POST: ' + JSON.stringify(req.body));
   redis.publish('specials', JSON.stringify(req.body));
   res.sendStatus(200);
 });
