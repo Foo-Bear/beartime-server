@@ -46,7 +46,8 @@ var parser = function(db) {
   var todaySpecials;
   redis.get('specials', function (err, res) {
     console.log('DEBUG: getting specials');
-    todaySpecials = underscore.find(JSON.parse(res), function(item){
+    specialsArray = JSON.parse(res);
+    todaySpecials = underscore.find(array, function(item){
       console.log("item " + item.date);
       return moment().isSame(moment(item.date), 'day');
     });
@@ -54,11 +55,14 @@ var parser = function(db) {
 
 
     // then we check which to return
-    // we do it in here so that it is a promise 
+    // we do it in here so that it is a promise
     if (today.length === 0 && typeof todaySpecials === "undefined") { //if there is nothing
       redis.set('today', "No School");
     } else if (typeof todaySpecials !== "undefined") { //otherwise if there is a special schedule
       redis.set('today', JSON.stringify(todaySpecials.schedule)); // return today defaults
+      if (specialsArray.indexOf(todaySpecials) > -1) {
+          array.splice(specialsArray.indexOf(todaySpecials), 1);
+      }
     } else {
       redis.set('today', JSON.stringify(today));
     }
