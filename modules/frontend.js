@@ -117,6 +117,7 @@ app.post('/inputschedule', jsonParser, function(req, res) {
   if (!req.body) return res.sendStatus(400);
   console.log('POST: ' + JSON.stringify(req.body));
   redis.publish('specials', JSON.stringify(req.body));
+  redis.publish('dbman', 'update');
   res.sendStatus(200);
 });
 
