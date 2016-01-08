@@ -8,6 +8,7 @@ var express = require('express');
 var app = express();
 var ioredis = require('ioredis');
 var bodyParser = require('body-parser');
+var passport = require('passport'), GoogleStrategy = require('passport-google').Strategy;
 console.log('Loaded Dependencies');
 
 // Connect to the redis server
@@ -118,9 +119,12 @@ app.post('/inputschedule', jsonParser, function(req, res) {
   console.log('POST: ' + JSON.stringify(req.body));
   redis.publish('specials', JSON.stringify(req.body));
   redis.publish('dbman', 'update');
+  res.send("Thanks M8 for the special " + JSON.stringify(req.body));
   res.sendStatus(200);
 });
-
+app.post('/deletespecial' , bodyParser , function (req, res) {
+  if (!req.body) return res.sendStatus(400);
+});
 
 app.listen(3000);
 
