@@ -8,7 +8,7 @@ var express = require('express');
 var app = express();
 var ioredis = require('ioredis');
 var bodyParser = require('body-parser');
-var passport = require('passport'), GoogleStrategy = require('passport-google-oath').OAuthStrategy;
+var passport = require('passport'), GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
 console.log('Loaded Dependencies');
 
 // Connect to the redis server
