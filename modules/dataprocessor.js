@@ -23,10 +23,10 @@ var gettoday = function() {
   redis.get('today', function(err, data) {
     if (err) throw err;
     if (data === "No School") {
-      today = "No School"; 
+      today = "No School";
     } else {
       today = JSON.parse(data);
-    }    
+    }
 // today = "No School";
   });
 };
@@ -59,13 +59,12 @@ var isnext = function() {
     });
     if (upcoming.length > 0) {
 
-      if (upcoming[1].key_name.slice(-1) !== 0 && currentClass.length < 2) {
+      if (upcoming[0].key_name.slice(-1) !== 0 && currentClass.length < 2) {
         nextClass = upcoming.slice(0, currentClass.length + 1);
       } else {
         nextClass = upcoming.slice(0, currentClass.length);
       }
     }
-    nextClass = upcoming.slice(0, currentClass.length);
     if (nextClass.length >= 1) redis.set('nextclass', JSON.stringify(nextClass));
     else redis.set('nextclass', "No School");
   } else {
