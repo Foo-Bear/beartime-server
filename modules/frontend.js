@@ -120,10 +120,12 @@ app.post('/inputschedule', jsonParser, function(req, res) {
   redis.publish('specials', JSON.stringify(req.body));
   redis.publish('dbman', 'update');
   res.send("Thanks M8 for the special " + JSON.stringify(req.body));
+  console.log(req.headers);
   res.sendStatus(200);
 });
 app.post('/deletespecial' , bodyParser , function (req, res) {
   if (!req.body) return res.sendStatus(400);
+
 });
 
 app.listen(3000);

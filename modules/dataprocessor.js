@@ -58,11 +58,10 @@ var isnext = function() {
       }));
     });
     if (upcoming.length > 0) {
-
-      if (upcoming[0].key_name.slice(-1) !== 0 && currentClass.length < 2) {
+      if (upcoming[0].key_name.slice(-1) !== 0 || currentClass.length == 2) {
         nextClass = upcoming.slice(0, currentClass.length + 1);
       } else {
-        nextClass = upcoming.slice(0, currentClass.length);
+        nextClass = upcoming.slice(0, 1);
       }
     }
     if (nextClass.length >= 1) redis.set('nextclass', JSON.stringify(nextClass));

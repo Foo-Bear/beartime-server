@@ -19,7 +19,7 @@ function IsJsonString(str) {
 /*
 The format for a special input is like follows:
 
-{date:2105-9-23, schedule: [{\"key_name\":\"4-030\",\"name\":\"Block 1\",\"shour\":9,\"smin\":50,\"ehour\":10,\"emin\":55,\"day\":4}]}
+{name: "optional name for reference", date:2105-9-23, schedule: [{\"key_name\":\"4-030\",\"name\":\"Block 1\",\"shour\":9,\"smin\":50,\"ehour\":10,\"emin\":55,\"day\":4}]}
 
 Notes, Ignore:
 append to array, push array to special on redis
@@ -50,4 +50,22 @@ redislistener.on('message', function (channel, message) {
       }
     } else {console.log("message invalid json");}
   });
+});
+
+
+// Reporting to the service list.
+// ATTACH THIS TO ALL SERVICES
+console.log('Reporting to service set');
+redis.zincrby('services', 1 ,  'specialsman'); // add us to the list
+
+process.on('exit', function (code) { // for clean exit
+  console.log('Removing From service list');
+  redis.zincrby('services', -1 ,  'specialsman
+
+  '); // remove all instances
+  redis.quit();
+  redislistener.quit();
+});
+process.on('SIGINT', function (code) { // for CTRL-C
+  process.exit(); // Do regular exit
 });
