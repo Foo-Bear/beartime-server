@@ -60,9 +60,7 @@ redis.zincrby('services', 1 ,  'specialsman'); // add us to the list
 
 process.on('exit', function (code) { // for clean exit
   console.log('Removing From service list');
-  redis.zincrby('services', -1 ,  'specialsman
-
-  '); // remove all instances
+  redis.zincrby('services', -1 ,  'specialsman'); // remove all instances
   redis.quit();
   redislistener.quit();
 });

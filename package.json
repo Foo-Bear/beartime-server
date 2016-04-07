@@ -14,7 +14,9 @@
     "debug": "^2.2.0",
     "express": "^4.13.3",
     "ioredis": "^1.11.0",
+    "jsonwebtoken": "^5.7.0",
     "moment": "^2.10.6",
+    "morgan": "^1.7.0",
     "node-schedule": "^0.2.9",
     "passport": "^0.3.2",
     "underscore": "^1.8.3"

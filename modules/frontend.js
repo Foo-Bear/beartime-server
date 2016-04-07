@@ -8,9 +8,13 @@ var express = require('express');
 var app = express();
 var ioredis = require('ioredis');
 var bodyParser = require('body-parser');
-var passport = require('passport'), GoogleStrategy = require('passport-google-oauth').OAuthStrategy;
+var underscore = require('underscore');
+var jwt = require('jsonwebtoken');
+var morgan = require('morgan');
+var config = require('../config.js');
 console.log('Loaded Dependencies');
 
+app.use(morgan('short'));
 // Connect to the redis server
 console.log('Connecting to the Redis Server');
 var redis = new ioredis({
@@ -31,7 +35,6 @@ redislistener.on('error', function(result) {
 });
 redislistener.subscribe('frontend');
 redis.publish('main', 'Frontend launched');
-
 
 
 var jsonParser = bodyParser.json(); // make a json parser for input
@@ -67,7 +70,6 @@ app.get('/currentclass', function(req, res) {
       res.send(result);
     }
   });
-  console.log("REQUEST: currentclass");
 });
 
 app.get('/nextclass', function(req, res) {
@@ -78,14 +80,12 @@ app.get('/nextclass', function(req, res) {
       res.send(result);
     }
   });
-  console.log("REQUEST: nextclass");
 });
 
 app.get('/today', function(req, res) {
   redis.get('today').then(function(result) {
     res.send(result);
   });
-  console.log("REQUEST: today");
 });
 
 app.get('/remainingtime', function(req, res) {
@@ -97,7 +97,6 @@ app.get('/remainingtime', function(req, res) {
       res.send(result);
     }
   });
-  console.log("REQUEST: remainingtime");
 });
 
 app.get('/specialschedule', function(req, res) {
@@ -109,24 +108,53 @@ app.get('/specialschedule', function(req, res) {
       res.send(result);
     }
   });
-  console.log("REQUEST: specials");
 });
 
 // end get commands, start post commands
-
+//These require Authentication
 app.post('/inputschedule', jsonParser, function(req, res) {
-  if (!req.body) return res.sendStatus(400);
-  console.log('POST: ' + JSON.stringify(req.body));
-  redis.publish('specials', JSON.stringify(req.body));
-  redis.publish('dbman', 'update');
-  res.send("Thanks M8 for the special " + JSON.stringify(req.body));
-  console.log(req.headers);
-  res.sendStatus(200);
+  if (!req.body) res.sendStatus(400);
+  var auth = jwt.verify(req.get('Authorization'), config.secret);
+
+  if (auth.admin == true && auth.ip == req.ip) {
+    redis.publish('specials', JSON.stringify(req.body));
+    redis.publish('dbman', 'update');
+    res.sendStatus(201);
+  } else {res.sendStatus(401)};
 });
 app.post('/deletespecial' , bodyParser , function (req, res) {
   if (!req.body) return res.sendStatus(400);
-
 });
+
+//Authentication
+app.post('/auth', jsonParser, function(req, res) {
+  if (!req.body) return res.sendStatus(400);
+  redis.get('auth', function (err, result) {
+    if (err) res.send('An error occured: ' + err);
+    if (underscore.isEqual(req.body, JSON.parse(result))) {
+      //Correct Authentication
+      //Assign a JWT key with happy fun time enabled and ip
+      res.send(jwt.sign({ admin: true, ip: req.ip }, config.secret));
+    } else {
+      res.sendStatus(401);
+    };
+  })
+});
+
+//userdata
+app.post('/getuser', jsonParser, function (req, res) {
+  redis.get("user:" + req.body.id, function (err, result) {
+    if (err) res.send(err);
+    if (!result) {
+      res.sendStatus(204);
+    } else {
+      res.sendStatus(201);
+    }
+  })
+});
+app.post('/storeuser', jsonParser, function (req, res) {
+
+})
 
 app.listen(3000);
 
