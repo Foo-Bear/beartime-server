@@ -1,9 +1,6 @@
 // The Frontend of the API: ties everything together
 // make sure to add all new features here when you extend the system
 
-console.log('Starting Frontend...');
-
-console.log('Loading Dependencies');
 var express = require('express');
 var app = express();
 var ioredis = require('ioredis');
@@ -12,23 +9,28 @@ var underscore = require('underscore');
 var jwt = require('jsonwebtoken');
 var morgan = require('morgan');
 var config = require('../config.js');
-console.log('Loaded Dependencies');
-
 app.use(morgan('short'));
+
+
+function log(message) {
+  var now = new Date().toUTCString();
+  console.log(now + ': ' + message);
+}
+log("Booting Frontend");
 // Connect to the redis server
-console.log('Connecting to the Redis Server');
+log('Connecting to the Redis Server');
 var redis = new ioredis({
   host: 'localhost'
 });
 redis.on('connect', function(result) {
-  console.log("Connected to redis");
+  log("Connected to redis");
 });
 redis.on('error', function(result) {
   throw result;
 });
 var redislistener = new ioredis(6379, 'localhost');
 redislistener.on('connect', function(result) {
-  console.log("Subscriber connected");
+  log("Subscriber connected");
 });
 redislistener.on('error', function(result) {
   throw result;
@@ -122,8 +124,10 @@ app.post('/inputschedule', jsonParser, function(req, res) {
     res.sendStatus(201);
   } else {res.sendStatus(401)};
 });
-app.post('/deletespecial' , bodyParser , function (req, res) {
+
+app.post('/deletespecial' , jsonParser , function (req, res) {
   if (!req.body) return res.sendStatus(400);
+  redis.publish('specials', 'delete: ' + req.body.date);
 });
 
 //Authentication
@@ -148,7 +152,11 @@ app.post('/getuser', jsonParser, function (req, res) {
     if (!result) {
       res.sendStatus(204);
     } else {
-      res.sendStatus(201);
+      jwt.sign({id: req.body.id, ip: req.ip}, config.secret);
+      res.send({
+        token: jwt.sign({id: req.body.id, ip: req.ip}, config.secret),
+        data: result
+      });
     }
   })
 });
@@ -158,11 +166,11 @@ app.post('/storeuser', jsonParser, function (req, res) {
 
 app.listen(3000);
 
-console.log('Reporting to service set');
+log('Reporting to service set');
 redis.zincrby('services', 1, 'frontend'); // add us to the list
 
 process.on('exit', function(code) { // for clean exit
-  console.log('Removing From service list');
+  log('Removing From service list');
   redis.zincrby('services', -1, 'frontend'); // remove all instances
   redis.quit();
   redislistener.quit();
