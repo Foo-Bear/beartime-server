@@ -70,16 +70,17 @@ var isnext = function() {
       }));
     });
     if (upcoming.length > 0) {
-      if (upcoming[0].key_name.slice(-1) == 0 && currentClass.length == 2) {
+      if (upcoming[0].key_name.slice(-1) == 0) { // if it is not a split
         nextClass = upcoming.slice(0, 1);
-      } else if (upcoming[0].key_name.slice(-1) !== 0 || currentClass.length == 2) {
-
-      } else {
-        nextClass = upcoming.slice(0, 1);
+      } else if (upcoming[0].key_name.slice(-1) !== 0) { // If it is a split
+        nextClass = upcoming.slice(0, 2)
       }
     }
-    if (nextClass.length >= 1) redis.set('nextclass', JSON.stringify(nextClass));
-    else redis.set('nextclass', "No School");
+    if (nextClass.length >= 1) {
+      redis.set('nextclass', JSON.stringify(nextClass))
+    } else {
+      redis.set('nextclass', "No School")
+    }
   } else {
     redis.set('nextclass', "No School");
   }

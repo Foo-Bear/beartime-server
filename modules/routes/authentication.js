@@ -60,6 +60,7 @@ module.exports = function(){
   app.post('/storeuser', jsonParser, function (req, res) {
     // pass id, and data in object. Data will not be appended.
     // verify token assigned upon getting user.
+    res.send('not yet implemented');
   });
 
   return app;
