@@ -36,7 +36,7 @@ var gettoday = function() {
 };
 gettoday(); // We should call this ASAP
 var isnow = function() { // determine current class
-  log.debug('Running ')
+  log.debug('Finding Current Class')
   if (today !== "No School") {
     currentClass = underscore.filter(today, function(item) {
       return moment().isBetween(moment({
@@ -47,24 +47,33 @@ var isnow = function() { // determine current class
         m: item.emin
       }));
     });
-    if (currentClass.length >= 1) redis.set('currentclass', JSON.stringify(currentClass));
-    else redis.set('currentclass', "No School");
+    if (currentClass.length >= 1) {
+      log.debug('Current class is ' + JSON.stringify(currentClass))
+      redis.set('currentclass', JSON.stringify(currentClass))
+    } else {
+      log.debug('School today, but no current class');
+      redis.set('currentclass', "Break")
+    }
   } else {
+    log.debug('No School today');
     redis.set('currentclass', "No School");
   }
 };
 
 var isnext = function() {
+  log.debug('Finding Next Class');
   if (today !== "No School") {
-    var upcoming = underscore.filter(today, function(item) {
+    var upcoming = underscore.filter(today, function(item) { //all upcoming classes.
       return moment().isBefore(moment({
         h: item.shour,
         m: item.smin
       }));
     });
     if (upcoming.length > 0) {
-      if (upcoming[0].key_name.slice(-1) !== 0 || currentClass.length == 2) {
-        nextClass = upcoming.slice(0, currentClass.length + 1);
+      if (upcoming[0].key_name.slice(-1) == 0 && currentClass.length == 2) {
+        nextClass = upcoming.slice(0, 1);
+      } else if (upcoming[0].key_name.slice(-1) !== 0 || currentClass.length == 2) {
+
       } else {
         nextClass = upcoming.slice(0, 1);
       }
@@ -77,7 +86,7 @@ var isnext = function() {
 };
 
 var endsin = function() {
-  if (today !== "No School" && currentClass !== "No School") {
+  if (currentClass !== "No School") { // are there classes right now?
     underscore.each(currentClass, function(item) { // do for all in currentclass
       item.etime = moment({
         h: item.ehour,
