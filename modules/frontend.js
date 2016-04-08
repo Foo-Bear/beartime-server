@@ -1,5 +1,5 @@
 // The Frontend of the API: ties everything together
-// make sure to add all new features here when you extend the system
+// make sure to add all new features here when extending the system
 
 var express = require('express');
 var app = express();
@@ -9,28 +9,26 @@ var underscore = require('underscore');
 var jwt = require('jsonwebtoken');
 var morgan = require('morgan');
 var config = require('../config.js');
-app.use(morgan('short'));
+var fs = require('fs')
+  , Log = require('log')
+  , log = new Log('debug', fs.createWriteStream('../frontend.log'));
 
+var accessLogStream = fs.createWriteStream('../access.log', {flags: 'a'})
+app.use(morgan('combined', {stream: accessLogStream}))
 
-function log(message) {
-  var now = new Date().toUTCString();
-  console.log(now + ': ' + message);
-}
-log("Booting Frontend");
+log.info("Booting Frontend");
 // Connect to the redis server
-log('Connecting to the Redis Server');
-var redis = new ioredis({
-  host: 'localhost'
-});
+log.info('Connecting to the Redis Server');
+var redis = new ioredis(config.dbport, config.dbaddr);
 redis.on('connect', function(result) {
-  log("Connected to redis");
+  log.info("Connected to redis");
 });
 redis.on('error', function(result) {
   throw result;
 });
-var redislistener = new ioredis(6379, 'localhost');
+var redislistener = new ioredis(config.dbport, config.dbaddr);
 redislistener.on('connect', function(result) {
-  log("Subscriber connected");
+  log.info("Subscriber connected");
 });
 redislistener.on('error', function(result) {
   throw result;
@@ -168,11 +166,11 @@ app.post('/storeuser', jsonParser, function (req, res) {
 
 app.listen(3000);
 
-log('Reporting to service set');
+log.debug('Reporting to service set');
 redis.zincrby('services', 1, 'frontend'); // add us to the list
 
 process.on('exit', function(code) { // for clean exit
-  log('Removing From service list');
+  log.debug('Removing From service list');
   redis.zincrby('services', -1, 'frontend'); // remove all instances
   redis.quit();
   redislistener.quit();

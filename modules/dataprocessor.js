@@ -1,16 +1,19 @@
 // Data Processor
 // Processes today's schedule
 var ioredis = require('ioredis');
-var moment = require('moment'); 
+var moment = require('moment');
 var scheduler = require('node-schedule');
 var underscore = require('underscore');
 var config = require('../config.js');
+var fs = require('fs')
+  , Log = require('log')
+  , log = new Log('debug', fs.createWriteStream('../dataprocessor.log'));
 // Connect to the redis server
-var redis = new ioredis(6379, 'localhost');
+var redis = new ioredis(config.dbport, config.dbaddr);
 redis.on('error', function(err) {
   throw err;
 });
-var redislistener = new ioredis(6379, 'localhost');
+var redislistener = new ioredis(config.dbport, config.dbaddr);
 redislistener.on('error', function(err) {
   throw err;
 });
@@ -33,6 +36,7 @@ var gettoday = function() {
 };
 gettoday(); // We should call this ASAP
 var isnow = function() { // determine current class
+  log.debug('Running ')
   if (today !== "No School") {
     currentClass = underscore.filter(today, function(item) {
       return moment().isBetween(moment({
@@ -103,11 +107,11 @@ redislistener.on('message', function(channel, message) {
 
 // Reporting to the service list.
 // ATTACH THIS TO ALL SERVICES
-console.log('Reporting to service set');
+log.info('Reporting to service set');
 redis.zincrby('services', 1, 'dataprocessor'); // add us to the list
 
 process.on('exit', function(code) { // for clean exit
-  console.log('Removing from service list');
+  log.info('Removing from service list');
   redis.zincrby('services', -1, 'dataprocessor'); // remove one instance of it (for scaling)
   redis.quit(); // remove from the server
   redislistener.quit();

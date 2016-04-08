@@ -1,6 +1,5 @@
 # Bearserver
-A server backend for bearstatus.
-
+A RESTful API to determine the current class and schedule. Supports special schedules, user data, and more.
 
 The Bearserver backend is the API for the bearstatus web interface. Bearserver processes times, classes, and schedules for other applications to use.
 
@@ -23,13 +22,13 @@ Using bearserver to get information is very simple.
 
 More features of bearserver are behind an authentication layer. These are usually `POST` requests.
 
-`/authenticate` will assign a JWT token based on the secret in `config.js` it is IP based.
+`/authenticate` will assign a JWT token based on the secret in `config.js`. It is IP based.
 
 If authenticated with the above method, the following commands are avaliable
 
 `/inputschedule` takes a JSON object like the following and adds it to the array of specials:
 
-Example input schedule
+Example input schedule:
 ```json
 {
   "name": "optional name for reference",
@@ -44,13 +43,19 @@ Example input schedule
       "day":4
   }]
 }
+key name
+1-752
+Monday, block 7
+5th class of the day
+part of second Lunch
 
 ```
 
 
-`/deleteschedule` takes the date of a schedule and deletes all entries with that Date
+`/deleteschedule` takes the date of a schedule and deletes all entries with a matching date.
 
 
+## User Data (WIP)
 Some user data is stored on the database. This data can be used to assign custom names to classes, e.g `Block 7` to `Science`.
 
 To access this data, `/getuser` takes a user ID and returns any data associated with it. A User ID can be anything from an email address to a username. The server will respond with a JWT token used to authenticate when storing the data again (i.e. editing).
@@ -80,13 +85,14 @@ Info on key_name:
 
 ```text
 
-1 -> Day of the class, Monday is 1
+1 -> Day of the class, Monday is 1. Not used.
 -
-0
-5 -> Class Number, in order. Same for above.
-2 -> Lunch split data. 0 means no split, 1 means first lunch, 2 means second lunch.
+7 -> Class id. For block 7, would be 7
+5 -> Class Number, in order. Not used.
+2 -> Lunch split data.
 
 ```
+Lunch split data can be 0, meaning no split, 1, for first schedule, and 2 for second schedule. All classes that are split should have the same split applied. See example database for example.
 
 Userdata is used to assign custom names to classes. Currently it is done based on class name, but in the future the key_name may be used instead.
 
