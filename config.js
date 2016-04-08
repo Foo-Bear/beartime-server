@@ -1,5 +1,9 @@
 module.exports = {
 
-    'secret': 'supersecret',
-    'database': 'localhost:'
+    'secret': 'supersecret', // Should not be human legible
+    'dbaddr': 'localhost:',
+    'dbport': '6379',
+    'dbuser': 'user',
+    'dbpass': 'pass'
+
 };

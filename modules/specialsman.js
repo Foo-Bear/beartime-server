@@ -6,6 +6,7 @@ console.log('Loading Dependencies');
 var ioredis = require('ioredis'); // redis clients
 var moment = require('moment'); //date/time thing
 var scheduler = require('node-schedule'); // autoupdater
+var config = require('../config.js');
 
 console.log('Loaded Dependencies');
 function IsJsonString(str) {

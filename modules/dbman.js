@@ -8,6 +8,8 @@ var fs = require('fs'); // filesystem
 var moment = require('moment'); //date stime thing
 var scheduler = require('node-schedule'); // autoupdater
 var underscore = require('underscore');
+var config = require('../config.js');
+
 console.log('Loaded Dependencies');
 // Connect to the redis server
 console.log('Connecting to the Redis Server');

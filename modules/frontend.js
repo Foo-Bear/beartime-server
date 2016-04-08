@@ -147,6 +147,7 @@ app.post('/auth', jsonParser, function(req, res) {
 
 //userdata
 app.post('/getuser', jsonParser, function (req, res) {
+  //pass id in object. Should probably verify @blakeschool.org
   redis.get("user:" + req.body.id, function (err, result) {
     if (err) res.send(err);
     if (!result) {
@@ -161,8 +162,9 @@ app.post('/getuser', jsonParser, function (req, res) {
   })
 });
 app.post('/storeuser', jsonParser, function (req, res) {
-
-})
+  // pass id, and data in object. Data will not be appended.
+  // verify token assigned upon getting user.
+});
 
 app.listen(3000);
 

@@ -1,9 +1,10 @@
 // Data Processor
 // Processes today's schedule
-var ioredis = require('ioredis'); // redis clients
-var moment = require('moment'); //date/time thing
-var scheduler = require('node-schedule'); // autoupdater
-var underscore = require('underscore'); // hurray we know what this means
+var ioredis = require('ioredis');
+var moment = require('moment'); 
+var scheduler = require('node-schedule');
+var underscore = require('underscore');
+var config = require('../config.js');
 // Connect to the redis server
 var redis = new ioredis(6379, 'localhost');
 redis.on('error', function(err) {
