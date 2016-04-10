@@ -43,11 +43,6 @@ Example input schedule:
       "day":4
   }]
 }
-key name
-1-752
-Monday, block 7
-5th class of the day
-part of second Lunch
 
 ```
 
@@ -82,6 +77,8 @@ Example class object:
 ```
 
 Info on key_name:
+
+As of now, the only important thing in key_name is the last number, which determines the lunch splits.
 
 ```text
 
