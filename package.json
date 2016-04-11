@@ -11,6 +11,7 @@
   "license": "GNU",
   "dependencies": {
     "body-parser": "^1.14.1",
+    "ecstatic": "^1.4.0",
     "express": "^4.13.3",
     "express-authentication": "^0.3.2",
     "express-authentication-basic": "^0.3.1",
@@ -21,10 +22,5 @@
     "morgan": "^1.7.0",
     "node-schedule": "^0.2.9",
     "underscore": "^1.8.3"
-  },
-}
-{
-  "standard": {
-    "globals": [ "redis", "redislistener" ]
   }
 }

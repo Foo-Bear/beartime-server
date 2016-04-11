@@ -11,6 +11,7 @@ var morgan = require('morgan')
 var config = require('../config.js')
 var fs = require('fs')
 var Log = require('log')
+var ecstatic = require('ecstatic')
 var log = new Log('debug', fs.createWriteStream('../frontend.log'))
 
 var accessLogStream = fs.createWriteStream('../access.log', {flags: 'a'})
@@ -33,9 +34,9 @@ app.use(function (req, res, next) {
   next()
 })
 
-app.use('/', require('./routes/schedules')) // load the schedules routes
-app.use('/', require('./routes/authentication')) // load the schedules routes
-
+app.use('/api', require('./routes/schedules')) // load the schedules routes
+app.use('/api', require('./routes/authentication')) // load the schedules routes
+app.use('/', ecstatic({ root: config.webroot }))
 app.listen(3000)
 
 log.debug('Reporting to service set')
