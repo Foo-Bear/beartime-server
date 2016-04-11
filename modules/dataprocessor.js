@@ -71,7 +71,9 @@ var isnext = function () {
       if (upcoming[0].key_name.slice(-1) === 0) { // if it is not a split
         nextClass = upcoming.slice(0, 1)
       } else if (upcoming[0].key_name.slice(-1) !== 0) { // If it is a split
-        nextClass = upcoming.slice(0, 2)
+        nextClass = []
+        nextClass.push(underscore.find(upcoming, function (item) { return item.key_name.slice(-1) === 1 }))
+        nextClass.push(underscore.find(upcoming, function (item) { return item.key_name.slice(-1) === 2 }))
       }
     }
     if (nextClass.length >= 1) {

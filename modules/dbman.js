@@ -47,7 +47,6 @@ var parser = function (db) {
       return moment().isSame(moment(item.date), 'day')
     })
     // log.debug(todaySpecials.schedule)
-
     // then we check which to return
     // we do it in here so that it is a promise
     if (today.length === 0 && typeof todaySpecials === 'undefined') { // if there is nothing
