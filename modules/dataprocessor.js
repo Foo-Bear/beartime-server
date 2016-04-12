@@ -66,7 +66,7 @@ var isnext = function () {
         m: item.smin
       }))
     })
-    redis.set('upcoming', upcoming)
+    redis.set('upcoming', JSON.parse(upcoming))
     log.debug(upcoming)
     if (upcoming.length > 0) {
       if (parseInt(upcoming[0].key_name.slice(-1), 10) === 0) { // if it is not a split
