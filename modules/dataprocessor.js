@@ -71,8 +71,12 @@ var isnext = function () {
     if (upcoming.length > 0) {
       if (parseInt(upcoming[0].key_name.slice(-1), 10) === 0) { // if it is not a split
         nextClass = []
-        for (i in currentClass) {
-          nextClass.push = upcoming.slice(0, 1) // easy
+        if (currentClass.length === 1) {
+          nextClass = upcoming.slice(0, 1)
+        } else {
+          for (i in currentClass) {
+            nextClass.push(0, 1)
+          }
         }
       } else if (upcoming[0].key_name.slice(-1) !== 0) { // If it is a split right now
         nextClass = []
