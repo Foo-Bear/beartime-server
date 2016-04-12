@@ -77,8 +77,8 @@ var isnext = function () {
       } else if (upcoming[0].key_name.slice(-1) !== 0) { // If it is a split right now
         nextClass = []
         // a bit of logic here
-        var a = underscore.find(upcoming, function (item) { return item.key_name.slice(-1) === '1' })
-        var b = underscore.find(upcoming, function (item) { return item.key_name.slice(-1) === '2' })
+        var a = underscore.find(upcoming, function (item) { return parseInt(item.key_name.slice(-1), 10) === 1 })
+        var b = underscore.find(upcoming, function (item) { return parseInt(item.key_name.slice(-1), 10) === 2 })
         if (a) {
           nextClass.push(a)
         } else {
