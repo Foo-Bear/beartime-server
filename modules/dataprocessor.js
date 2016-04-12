@@ -69,7 +69,7 @@ var isnext = function () {
     redis.set('upcoming', upcoming)
     log.debug(upcoming)
     if (upcoming.length > 0) {
-      if (upcoming[0].key_name.slice(-1) === 0) { // if it is not a split
+      if (parseInt(upcoming[0].key_name.slice(-1), 10) === 0) { // if it is not a split
         nextClass = []
         for (i in currentClass) {
           nextClass.push = upcoming.slice(0, 1) // easy
