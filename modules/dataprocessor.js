@@ -69,11 +69,22 @@ var isnext = function () {
     log.debug(upcoming)
     if (upcoming.length > 0) {
       if (upcoming[0].key_name.slice(-1) === 0) { // if it is not a split
-        nextClass = upcoming.slice(0, 1)
-      } else if (upcoming[0].key_name.slice(-1) !== 0) { // If it is a split
+        nextClass = upcoming.slice(0, 1) // easy
+      } else if (upcoming[0].key_name.slice(-1) !== 0) { // If it is a split right now
         nextClass = []
-        nextClass.push(underscore.find(upcoming, function (item) { return item.key_name.slice(-1) === '1' }))
-        nextClass.push(underscore.find(upcoming, function (item) { return item.key_name.slice(-1) === '2' }))
+        // a bit of logic here
+        var a = underscore.find(upcoming, function (item) { return item.key_name.slice(-1) === '1' })
+        var b = underscore.find(upcoming, function (item) { return item.key_name.slice(-1) === '2' })
+        if (a) {
+          nextClass.push(a)
+        } else {
+          nextClass.push(upcoming[2])
+        }
+        if (b) {
+          nextClass.push(b)
+        } else {
+          nextClass.push(upcoming[2])
+        }
       }
     }
     if (nextClass.length >= 1) {
