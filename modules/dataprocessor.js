@@ -69,7 +69,10 @@ var isnext = function () {
     log.debug(upcoming)
     if (upcoming.length > 0) {
       if (upcoming[0].key_name.slice(-1) === 0) { // if it is not a split
-        nextClass = upcoming.slice(0, 1) // easy
+        nextClass = []
+        for (i in currentClass) {
+          nextClass.push = upcoming.slice(0, 1) // easy
+        }
       } else if (upcoming[0].key_name.slice(-1) !== 0) { // If it is a split right now
         nextClass = []
         // a bit of logic here
