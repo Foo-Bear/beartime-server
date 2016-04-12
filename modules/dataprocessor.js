@@ -66,6 +66,7 @@ var isnext = function () {
         m: item.smin
       }))
     })
+    redis.set('upcoming', upcoming)
     log.debug(upcoming)
     if (upcoming.length > 0) {
       if (upcoming[0].key_name.slice(-1) === 0) { // if it is not a split
@@ -95,7 +96,6 @@ var isnext = function () {
     } else {
       redis.set('nextclass', 'No School')
     }
-    redis.set('upcoming', upcoming)
   } else {
     redis.set('nextclass', 'No School')
   }
