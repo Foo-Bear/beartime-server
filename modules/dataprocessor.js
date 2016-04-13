@@ -16,6 +16,7 @@ var today
 var currentClass = []
 var nextClass = []
 var remainingTime = []
+var upcoming
 
 var gettoday = function () {
   redis.get('today', function (err, data) {
@@ -44,11 +45,11 @@ var isnow = function () { // determine current class
     if (currentClass.length >= 1) {
       log.debug('Current class is ' + JSON.stringify(currentClass))
       redis.set('currentclass', JSON.stringify(currentClass))
-    } else if (nextClass.length >= 1) {
+    } else if (upcoming.length >= 1) {
       log.debug('School today, but no current class')
       redis.set('currentclass', 'Break')
-    } else if (nextClass.length === 0) {
-      log.debug('No next class, school is out now.')
+    } else if (upcoming.length === 0) {
+      log.debug('No upcoming classes, school is out now.')
       redis.set('currentclass', 'No School')
     }
   } else {
@@ -60,7 +61,7 @@ var isnow = function () { // determine current class
 var isnext = function () {
   log.debug('Finding Next Class')
   if (today !== 'No School') {
-    var upcoming = underscore.filter(today, function (item) { // all upcoming classes.
+    upcoming = underscore.filter(today, function (item) { // all upcoming classes.
       return moment().isBefore(moment({
         h: item.shour,
         m: item.smin
