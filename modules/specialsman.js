@@ -2,7 +2,6 @@
 
 // Specials Manager
 // Processes today's schedule
-log.debug('Starting Data Processor...')
 // import all features
 var config = require('../config.js')
 var fs = require('fs')

@@ -12,11 +12,11 @@ var log = new Log('debug', fs.createWriteStream('../dataprocessor.log'))
 config.connect('dataprocessor')
 
 // Define functions
-var today
+var today = []
 var currentClass = []
 var nextClass = []
 var remainingTime = []
-var upcoming
+var upcoming = []
 
 var gettoday = function () {
   redis.get('today', function (err, data) {
