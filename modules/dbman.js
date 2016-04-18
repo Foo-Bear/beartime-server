@@ -11,9 +11,7 @@ var scheduler = require('node-schedule') // autoupdater
 var underscore = require('underscore')
 var config = require('../config.js')
 var fs = require('fs')
-var Log = require('log')
-var log = new Log('debug', fs.createWriteStream('../dbman.log'))
-log.info('Starting Database Manager...')
+console.log('Starting Database Manager...')
 
 // Connect to the redis server
 config.connect('dbman')
@@ -25,13 +23,13 @@ var basejson = {}
 
 var update = function () {
   // read the database async
-  log.debug('Loading the Database Files')
+  console.log('Loading the Database Files')
   basejson = JSON.parse(fs.readFileSync('../db/database.json'))
 }
 // check what to return
 
 var parser = function (db) {
-  log.debug('Parsing the Database Files')
+  console.log('Parsing the Database Files')
   db = db || basejson.treeroot // take a db or default to the basejson
   var today = underscore.filter(db, function (item) {
     return moment().isSame(moment().day(item.day), 'day')
@@ -39,14 +37,14 @@ var parser = function (db) {
   // next we see if there is any specials today
   var todaySpecials
   redis.get('specials', function (err, res) {
-    if (err) log.error(err)
-    log.debug('DEBUG: getting specials')
+    if (err) console.log(err)
+    console.log('DEBUG: getting specials')
     var specialsArray = JSON.parse(res)
     todaySpecials = underscore.find(specialsArray, function (item) {
-      log.debug('item ' + item.date)
+      console.log('item ' + item.date)
       return moment().isSame(moment(item.date), 'day')
     })
-    // log.debug(todaySpecials.schedule)
+    // console.log(todaySpecials.schedule)
     // then we check which to return
     // we do it in here so that it is a promise
     if (today.length === 0 && typeof todaySpecials === 'undefined') { // if there is nothing
@@ -65,7 +63,7 @@ var parser = function (db) {
 
 // run every day
 var dayjob = scheduler.scheduleJob('0 0 * * *', function () {
-  log.debug('Running Daily Update')
+  console.log('Running Daily Update')
   update()
   parser()
 })
@@ -76,18 +74,18 @@ dayjob.invoke()
 
 redislistener.on('message', function (channel, message) {
   if (message === 'update' && channel === 'dbman') {
-    log.debug('Got an update request from the Redis Channel')
+    console.log('Got an update request from the Redis Channel')
     dayjob.invoke()
   }
 })
 
 // Reporting to the service list.
 // ATTACH THIS TO ALL SERVICES
-log.debug('Reporting to service set')
+console.log('Reporting to service set')
 redis.zincrby('services', 1, 'dbman') // add us to the list
 
 process.on('exit', function (code) { // for clean exit
-  log.debug('Removing From service list')
+  console.log('Removing From service list')
   redis.zincrby('services', -1, 'dbman') // remove all instances
   redis.quit()
   redislistener.quit()

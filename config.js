@@ -10,7 +10,7 @@ var Ioredis = require('ioredis')
 exports.connect = function (sub) {
   console.log('Connecting to the Redis Server')
   redis = new Ioredis({
-    port: exports.dbport, 
+    port: exports.dbport,
     host: exports.dbaddr,
     password: exports.dbpass
   })
@@ -21,7 +21,7 @@ exports.connect = function (sub) {
     throw result
   })
   redislistener = new Ioredis({
-    port:exports.dbport, 
+    port:exports.dbport,
     host: exports.dbaddr,
     password: exports.dbpass
   })

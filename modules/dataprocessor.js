@@ -5,9 +5,6 @@ var moment = require('moment')
 var scheduler = require('node-schedule')
 var underscore = require('underscore')
 var config = require('../config.js')
-var fs = require('fs')
-var Log = require('log')
-var log = new Log('debug', fs.createWriteStream('../dataprocessor.log'))
 // Connect to the redis server
 config.connect('dataprocessor')
 
@@ -31,7 +28,7 @@ var gettoday = function () {
 }
 // gettoday() // We should call this ASAP
 var isnow = function () { // determine current class
-  log.debug('Finding Current Class')
+  console.log('Finding Current Class')
   if (today !== 'No School') {
     currentClass = underscore.filter(today, function (item) {
       return moment().isBetween(moment({
@@ -43,23 +40,23 @@ var isnow = function () { // determine current class
       }))
     })
     if (currentClass.length >= 1) {
-      log.debug('Current class is ' + JSON.stringify(currentClass))
+      console.log('Current class is ' + JSON.stringify(currentClass))
       redis.set('currentclass', JSON.stringify(currentClass))
     } else if (upcoming.length >= 1) {
-      log.debug('School today, but no current class')
+      console.log('School today, but no current class')
       redis.set('currentclass', 'Break')
     } else if (upcoming.length === 0) {
-      log.debug('No upcoming classes, school is out now.')
+      console.log('No upcoming classes, school is out now.')
       redis.set('currentclass', 'No School')
     }
   } else {
-    log.debug('No School today')
+    console.log('No School today')
     redis.set('currentclass', 'No School')
   }
 }
 
 var isnext = function () {
-  log.debug('Finding Next Class')
+  console.log('Finding Next Class')
   if (today !== 'No School') {
     upcoming = underscore.filter(today, function (item) { // all upcoming classes.
       return moment().isBefore(moment({
@@ -68,17 +65,11 @@ var isnext = function () {
       }))
     })
     redis.set('upcoming', JSON.stringify(upcoming))
-    log.debug(upcoming)
+    console.log(upcoming)
     if (upcoming.length > 0) {
       if (parseInt(upcoming[0].key_name.slice(-1), 10) === 0) { // if it is not a split
         nextClass = []
-        if (currentClass.length === 1) {
-          nextClass = upcoming.slice(0, 1)
-        } else {
-          for (i in currentClass) {
-            nextClass.push(0, 1)
-          }
-        }
+        nextClass = upcoming.slice(0, 1)
       } else if (upcoming[0].key_name.slice(-1) !== 0) { // If it is a split right now
         nextClass = []
         // a bit of logic here
@@ -137,11 +128,11 @@ redislistener.on('message', function (channel, message) {
 
 // Reporting to the service list.
 // ATTACH THIS TO ALL SERVICES
-log.info('Reporting to service set')
+console.log('Reporting to service set')
 redis.zincrby('services', 1, 'dataprocessor') // add us to the list
 
 process.on('exit', function (code) { // for clean exit
-  log.info('Removing from service list')
+  console.log('Removing from service list')
   redis.zincrby('services', -1, 'dataprocessor') // remove one instance of it (for scaling)
   redis.quit() // remove from the server
   redislistener.quit()

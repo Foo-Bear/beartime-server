@@ -9,15 +9,11 @@ var app = express()
 // var underscore = require('underscore')
 var morgan = require('morgan')
 var config = require('../config.js')
-var fs = require('fs')
-var Log = require('log')
+
 var ecstatic = require('ecstatic')
-var log = new Log('debug', fs.createWriteStream('../frontend.log'))
+app.use(morgan('dev'))
 
-var accessLogStream = fs.createWriteStream('../access.log', {flags: 'a'})
-app.use(morgan('common', {stream: accessLogStream}))
-
-log.info('Booting Frontend')
+console.log('Booting Frontend')
 // Connect to the redis server
 config.connect('frontend')
 
@@ -39,11 +35,11 @@ app.use('/api', require('./routes/authentication')) // load the schedules routes
 app.use('/', ecstatic({ root: config.webroot }))
 app.listen(3000)
 
-log.debug('Reporting to service set')
+console.log('Reporting to service set')
 redis.zincrby('services', 1, 'frontend') // add us to the list
 
 process.on('exit', function (code) { // for clean exit
-  log.debug('Removing From service list')
+  console.log('Removing From service list')
   redis.zincrby('services', -1, 'frontend') // remove all instances
   redis.quit()
   redislistener.quit()
