@@ -40,7 +40,7 @@ var credentials = {key: privateKey, cert: certificate}
 app.use('/api', require('./routes/schedules')) // load the schedules routes
 app.use('/api', require('./routes/authentication')) // load the schedules routes
 app.use('/', ecstatic({ root: config.webroot }))
-
+app.listen(3000)
 /*
 var httpsServer = https.createServer(credentials, app)
 httpsServer.listen(3000)
