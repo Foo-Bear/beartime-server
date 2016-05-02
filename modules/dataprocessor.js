@@ -67,7 +67,7 @@ var isnext = function () {
     })
     redis.set('upcoming', JSON.stringify(upcoming))
     console.log(upcoming)
-    if (upcoming.length > 0) {
+    if (upcoming.length >= 1) {
       console.log('upcoming is a pretty long ' + upcoming.length)
       if (parseInt(upcoming[0].key_name.slice(-1), 10) === 0) { // if it is not a split
         nextClass = []
@@ -88,6 +88,8 @@ var isnext = function () {
           nextClass.push(upcoming[2])
         }
       }
+    } else {
+      redis.set('nextclass', 'No School')
     }
     if (nextClass.length >= 1) {
       redis.set('nextclass', JSON.stringify(nextClass))
