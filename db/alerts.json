@@ -1,6 +1,0 @@
-{
-  "messages": [
-    {"name":"Title", "content":"Message", "url":"www.google.com" },
-    {"name":"School is yay", "content":"this is false", "expire":"10"}
-  ]
-}

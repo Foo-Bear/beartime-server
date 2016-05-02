@@ -58,6 +58,7 @@ var isnow = function () { // determine current class
 var isnext = function () {
   console.log('Finding Next Class')
   if (today !== 'No School') {
+    upcoming = []
     upcoming = underscore.filter(today, function (item) { // all upcoming classes.
       return moment().isBefore(moment({
         h: item.shour,
@@ -67,12 +68,13 @@ var isnext = function () {
     redis.set('upcoming', JSON.stringify(upcoming))
     console.log(upcoming)
     if (upcoming.length > 0) {
+      console.log('upcoming is a pretty long ' + upcoming.length)
       if (parseInt(upcoming[0].key_name.slice(-1), 10) === 0) { // if it is not a split
         nextClass = []
         nextClass = upcoming.slice(0, 1)
       } else if (upcoming[0].key_name.slice(-1) !== 0) { // If it is a split right now
         nextClass = []
-        // a bit of logic here
+        // a bit of logic here. 
         var a = underscore.find(upcoming, function (item) { return parseInt(item.key_name.slice(-1), 10) === 1 })
         var b = underscore.find(upcoming, function (item) { return parseInt(item.key_name.slice(-1), 10) === 2 })
         if (a) {

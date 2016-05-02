@@ -21,10 +21,20 @@ module.exports = (function () {
     }
   })
   app.post('/deletespecial', jsonParser, function (req, res) {
-      if (!req.body) return res.sendStatus(400)
-      redis.publish('specials', 'delete: ' + req.body.date)
-    })
-    // Authentication
+    if (!req.body) return res.sendStatus(400)
+    redis.publish('specials', 'delete: ' + req.body.date)
+  })
+  app.post('/modifyspecial', jsonParser, function(req, res) {
+    if (!req.body) {res.sendStatus(400)}
+    var auth = jwt.verify(req.get('Authorization'), config.secret)
+    if (auth.admin === true && auth.ip === req.ip) {
+      redis.set('specials', JSON.stringify(req.body))
+      redis.publish('dbman', 'update')
+      res.sendStatus(201)
+    } else {
+      res.sendStatus(401)
+    }
+  })
   app.post('/auth', jsonParser, function (req, res) {
     if (!req.body) return res.sendStatus(400)
     redis.get('auth', function (err, result) {
