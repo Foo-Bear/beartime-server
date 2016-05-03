@@ -9,6 +9,11 @@ module.exports = (function () {
   var Ioredis = require('ioredis')
   var redis = new Ioredis(config.dbport, config.dbaddr)
   var underscore = require('underscore')
+  app.use(function(req, res, next) { // custom CORS headers for authorization
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+    next()
+  })
   app.post('/inputschedule', jsonParser, function (req, res) {
     if (!req.body) res.sendStatus(400)
     var auth = jwt.verify(req.get('Authorization'), config.secret)
