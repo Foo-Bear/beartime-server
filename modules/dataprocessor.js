@@ -59,6 +59,7 @@ var isnext = function () {
   console.log('Finding Next Class')
   if (today !== 'No School') {
     upcoming = []
+    nextClass = []
     upcoming = underscore.filter(today, function (item) { // all upcoming classes.
       return moment().isBefore(moment({
         h: item.shour,
