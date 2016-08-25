@@ -31,13 +31,7 @@ var isnow = function () { // determine current class
   console.log('Finding Current Class')
   if (today !== 'No School') {
     currentClass = underscore.filter(today, function (item) {
-      return moment().isBetween(moment({
-        h: item.shour,
-        m: item.smin
-      }), moment({
-        h: item.ehour,
-        m: item.emin
-      }))
+      return moment().isBetween(moment(item.stime), moment(item.etime))
     })
     if (currentClass.length >= 1) {
       console.log('Current class is ' + JSON.stringify(currentClass))
@@ -61,10 +55,7 @@ var isnext = function () {
     upcoming = []
     nextClass = []
     upcoming = underscore.filter(today, function (item) { // all upcoming classes.
-      return moment().isBefore(moment({
-        h: item.shour,
-        m: item.smin
-      }))
+      return moment().isBefore(moment(item.stime))
     })
     redis.set('upcoming', JSON.stringify(upcoming))
     console.log(upcoming)

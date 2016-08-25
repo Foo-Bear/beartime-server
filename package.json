@@ -8,7 +8,7 @@
     "start": "pm2 start processes.json"
   },
   "author": "Saji Champlin",
-  "license": "GNU",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.14.1",
     "ecstatic": "^1.4.0",
