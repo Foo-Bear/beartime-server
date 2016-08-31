@@ -58,8 +58,7 @@ module.exports = do ->
         }, config.secret)
       else
         res.sendStatus 401
-      return
-    return
+
   app
 
 # ---

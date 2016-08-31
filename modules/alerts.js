@@ -15,7 +15,7 @@ console.log('Connecting to the Redis Server');
 var redis = new ioredis(6379, 'localhost');
 var redislistener = new ioredis(6379, 'localhost');
 var stream = redis.scanStream({
-  // only returns keys following the pattern of `user:*`
+  // only returns keys following the pattern of `alert:*`
   match: 'alert:*',
   // returns approximately 100 elements per call
 });

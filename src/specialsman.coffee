@@ -13,7 +13,6 @@ IsJsonString = (str) ->
   true
 
 console.log 'Starting Data Processor...'
-
 ###
 The format for a special input is like follows:
 

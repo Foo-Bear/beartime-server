@@ -7,6 +7,7 @@ scheduler = require('node-schedule')
 underscore = require('underscore')
 config = require('../config.js')
 fs = require('fs')
+async = require 'async'
 console.log 'Starting Database Manager...'
 
 config.connect 'dbman'
@@ -20,48 +21,53 @@ update = ->
 
 # check what to return
 
-parserDay = (date) ->
-  console.log 'Parsing the Database Files'
-  #get the classes for today
-  db = basejson.treeroot
-  today = underscore.filter(db, (item) ->
-    moment().isSame moment().day(item.day), 'day'
-  )
+parserDay = (update, date, callback) ->
+  console.log 'parsing a day: ' + moment(date).format('YYYY-MM-DD')
+
+  today = basejson.treeroot[moment().day()] unless date?
+  if date?
+    today = basejson.treeroot[moment(date if date?).day()]
   # next we see if there is any specials today
   todaySpecials = undefined
   redis.get 'specials', (err, res) ->
     if err
       console.log err
-    console.log 'DEBUG: getting specials'
+
     specialsArray = JSON.parse res
     todaySpecials = underscore.find(specialsArray, (item) ->
-      console.log 'item ' + item.date
-      moment().isSame moment(item.date), 'day'
+      moment(date if date?).isSame moment(item.date, 'YYYY-MM-DD'), 'day'
     )
-    # console.log(todaySpecials.schedule)
-    # then we check which to return
-    # we do it in here so that it is a promise
-    if today.length == 0 and typeof todaySpecials == 'undefined'
-      redis.set 'today', 'No School'
-    else if typeof todaySpecials != 'undefined'
-      # otherwise if there is a special schedule
-      redis.set 'today', JSON.stringify(todaySpecials.schedule)
-      # return today defaults
-      if specialsArray.indexOf(todaySpecials) > -1
-        specialsArray.splice specialsArray.indexOf(todaySpecials), 1
-    else
-      redis.set 'today', JSON.stringify(today)
-    redis.set 'schedule', JSON.stringify(db)
-    return
-  return
+    if todaySpecials? then today = todaySpecials.schedule
+    if update
+      setToday today
+    if callback
+      callback today
+  
+  
 
 parserWeek = ->
+  week = []
+  async.eachSeries [1..5], 
+    (item, callback) ->
+      parserDay false, moment().day(item), (today) -> week[item] = today; callback()
+    () -> redis.set 'week', JSON.stringify week
+
+
+setToday = (daySchedule) ->
+  if daySchedule?
+    redis.set 'today', JSON.stringify(daySchedule)
+  else
+    redis.set 'today', 'No School'
+  redis.set 'schedule', JSON.stringify(basejson.treeroot)
+
+
 
 # run every day
 dayjob = scheduler.scheduleJob('0 0 * * *', ->
   console.log 'Running Daily Update'
   update()
-  parserDay()
+  parserDay(true)
+  parserWeek()
   return
 )
 # call the job on startup cause we don't want to wait

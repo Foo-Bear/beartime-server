@@ -12,6 +12,7 @@ config = require('../config.js')
 ecstatic = require('ecstatic')
 # var https = require('https')
 app.use morgan('tiny')
+
 console.log 'Booting Frontend'
 # Connect to the redis server
 config.connect 'frontend'
