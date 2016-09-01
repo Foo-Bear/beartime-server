@@ -1,6 +1,6 @@
-Specials Manager
-Processes today's schedule
-import all features
+##Specials Manager
+####Processes today's schedule
+import all features. Not very many. We also have a function for testing JSON.
 
     config = require('../config.js')
 
@@ -11,66 +11,48 @@ import all features
         return false
       true
 
-    console.log 'Starting Data Processor...'
-
-The format for a special input is like follows:
-
-{name: 'optional name for reference', date:2015-09-23, schedule: [{\'key_name\':\'4-030\',\'name\':\'Block 1\',\'shour\':9,\'smin\':50,\'ehour\':10,\'emin\':55,\'day\':4}]}
-
-Notes, Ignore:
-append to array, push array to special on redis
-dbman will read specials and see if any date matches
-if date matches, send instead of regular planned schedule
-
+    console.log 'Starting Specials Manager...'
     config.connect 'specials'
+
+
+
     redislistener.on 'message', (channel, message) ->
+
+When we get a message, parse it through our parser.
+
       console.log 'got message'
+
+Load the current specials array.
+
       redis.get 'specials', (err, res) ->
         if err
           console.log err
+
+Parse and verify JSON message.
+
         specials = JSON.parse(res)
         input = JSON.parse(message)
         if IsJsonString(message)
           console.log 'got a new special'
+
+Verify that the specials global is an array. Otherwise, refresh it.
+
           if Array.isArray(specials) == false
             specials = []
             console.log 'specials is bad, restarting'
+
+Do some typechecking to make sure that no problems occur later.
+
           if typeof input.date == 'string' and Array.isArray(input.schedule)
+
+It's all good at this point, so go ahead and add it to the array and set the new global.
+Also update the dbman, because a new special might affect schedules.
+
             specials.push JSON.parse(message)
             redis.set 'specials', JSON.stringify(specials)
             redis.publish 'dbman', 'update'
+
+cleanup
+
         else
           console.log 'message invalid json'
-        return
-      return
-
-Reporting to the service list.
-ATTACH THIS TO ALL SERVICES
-
-    console.log 'Reporting to service set'
-    redis.zincrby 'services', 1, 'specialsman'
-
-add us to the list
-
-    process.on 'exit', (code) ->
-
-for clean exit
-
-      console.log 'Removing From service list'
-      redis.zincrby 'services', -1, 'specialsman'
-
-remove all instances
-
-      redis.quit()
-      redislistener.quit()
-      return
-    process.on 'SIGINT', (code) ->
-
-for CTRL-C
-
-      process.exit()
-
-Do regular exit
-
-      return
-

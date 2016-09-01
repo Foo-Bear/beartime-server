@@ -1,5 +1,5 @@
-Data Processor
-Processes today's schedule
+##Data Processor
+####Processes today's schedule
 
     moment = require('moment')
     scheduler = require('node-schedule')
@@ -10,13 +10,16 @@ Connect to the redis server
 
     config.connect 'dataprocessor'
 
-Define functions
+Define variables.
 
     today = []
     currentClass = []
     nextClass = []
     remainingTime = []
     upcoming = []
+
+The gettoday function is like the update function in dbman. It loads the daily schedule.
+
 
     gettoday = ->
       redis.get 'today', (err, data) ->
@@ -27,16 +30,9 @@ Define functions
         else
           today = JSON.parse(data)
 
-today = "No School"
-
-        return
-      return
-
-gettoday() // We should call this ASAP
+The meaning of life
 
     isnow = ->
-
-determine current class
 
       console.log 'Finding Current Class'
       if today != 'No School'
@@ -84,20 +80,20 @@ If it is a split right now
 
             nextClass = []
 
-a bit of logic here. 
+Crazy Logic. Something to do with lunch splits. Needs a refactor.
 
-            a = underscore.find(upcoming, (item) ->
+            1stLunch = underscore.find(upcoming, (item) ->
               parseInt(item.key_name.slice(-1), 10) == 1
             )
-            b = underscore.find(upcoming, (item) ->
+            2ndLunch = underscore.find(upcoming, (item) ->
               parseInt(item.key_name.slice(-1), 10) == 2
             )
-            if a
-              nextClass.push a
+            if 1stLunch
+              nextClass.push 1stLunch
             else
               nextClass.push upcoming[2]
-            if b
-              nextClass.push b
+            if 2ndLunch
+              nextClass.push 2ndLunch
             else
               nextClass.push upcoming[2]
         else
@@ -157,37 +153,3 @@ called every minute at 0 seconds
       if message == 'update'
         minutejob.invoke()
       return
-
-Reporting to the service list.
-ATTACH THIS TO ALL SERVICES
-
-    console.log 'Reporting to service set'
-    redis.zincrby 'services', 1, 'dataprocessor'
-
-add us to the list
-
-    process.on 'exit', (code) ->
-
-for clean exit
-
-      console.log 'Removing from service list'
-      redis.zincrby 'services', -1, 'dataprocessor'
-
-remove one instance of it (for scaling)
-
-      redis.quit()
-
-remove from the server
-
-      redislistener.quit()
-      return
-    process.on 'SIGINT', (code) ->
-
-for CTRL-C
-
-      process.exit()
-
-Do regular exit
-
-      return
-

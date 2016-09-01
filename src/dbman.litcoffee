@@ -103,34 +103,3 @@ Subscribe to messages sent by a redis client. useful for development.
         dayjob.invoke()
         weekjob.invoke()
       return
-
-Reporting to the service list.
-ATTACH THIS TO ALL SERVICES
-add us to the list
-
-    console.log 'Reporting to service set'
-    redis.zincrby 'services', 1, 'dbman'
-
-
-
-    process.on 'exit', (code) ->
-
-for clean exit
-
-      console.log 'Removing From service list'
-      redis.zincrby 'services', -1, 'dbman'
-
-remove all instances
-
-      redis.quit()
-      redislistener.quit()
-      return
-    process.on 'SIGINT', (code) ->
-
-for CTRL-C
-
-      process.exit()
-
-Do regular exit
-
-      return

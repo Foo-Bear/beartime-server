@@ -22,38 +22,13 @@ CORS headers.
       res.header 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'
       next()
 
-Import all routes and assign a static route from the config.
+Import all routes and assign a static route from the config. See those files for details.
 
     app.use '/api', require './routes/schedules'
     app.use '/api', require './routes/authentication'
     app.use '/', ecstatic root: config.webroot
 
+Start the listener
+
     app.listen 3000
-
-    console.log 'Reporting to service set'
-    redis.zincrby 'services', 1, 'frontend'
-
-add us to the list
-
-    process.on 'exit', (code) ->
-
-for clean exit
-
-      console.log 'Removing From service list'
-      redis.zincrby 'services', -1, 'frontend'
-
-remove all instances
-
-      redis.quit()
-      redislistener.quit()
-      return
-    process.on 'SIGINT', (code) ->
-
-for CTRL-C
-
-      process.exit()
-
-Do regular exit
-
-      return
 

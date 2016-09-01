@@ -1,4 +1,5 @@
-Most scheduling stuff that does not need authentication should go here
+##Routes - Schedules
+####Most scheduling stuff that does not need authentication should go here
 
     module.exports = do ->
       express = require('express')
@@ -6,15 +7,6 @@ Most scheduling stuff that does not need authentication should go here
       config = require('../../config.js')
       Ioredis = require('ioredis')
       redis = new Ioredis(config.dbport, config.dbaddr)
-      app.get '/', (req, res) ->
-
-for A client to ping the entire system
-
-        redis.zrange 'services', 0, -1, 'WITHSCORES', (err, result) ->
-          if err
-            res.send 'An error occured: ' + err
-          else
-            res.send result
 
       app.get '/currentclass', (req, res) ->
         redis.get 'currentclass', (err, result) ->
