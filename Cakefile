@@ -11,7 +11,6 @@ task 'build', 'build stuff', ->
 
 task 'host', 'light it up!', ->
 	new Service 'dbman'
-	new Service 'dataprocessor'
 	new Service 'frontend'
 	new Service 'specialsman'
 

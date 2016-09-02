@@ -15,7 +15,6 @@ import all features. Not very many. We also have a function for testing JSON.
     config.connect 'specials'
 
 
-
     redislistener.on 'message', (channel, message) ->
 
 When we get a message, parse it through our parser.
