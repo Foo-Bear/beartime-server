@@ -8,9 +8,16 @@
       Ioredis = require('ioredis')
       redis = new Ioredis(config.dbport, config.dbaddr)
 
-      app.get '/today', (req, res) ->
+Get the current schedule. returns an array of classes as defined in readme.
+There's also the date optional param which changes the functionality entirely and 
+
+      app.get '/day/:date*?', (req, res) ->
+        if res.params.date?
+
         redis.get('today').then (result) ->
           res.send result
+
+Get the list of all specials. Pretty useless.
 
       app.get '/specialschedule', (req, res) ->
         redis.get 'specials', (err, result) ->
@@ -19,7 +26,10 @@
             throw err
           else
             res.send result
-      app.get '/week', (req, res) ->
+
+Get the weekly schedule.
+
+      app.get '/week/:date*?', (req, res) ->
         redis.get 'week', (err, result) ->
           if err
             res.send err

@@ -1,3 +1,15 @@
 node_modules/*
 modules/*
 *.log
+
+modules/dataprocessor.js
+
+modules/dataprocessor.js
+
+modules/dataprocessor.js
+
+modules/dbman.js
+
+Gulpfile.js
+
+.DS_Store

@@ -10,19 +10,17 @@ The Bearserver backend is the API for the bearstatus web interface. Bearserver p
 
 Using bearserver to get information is very simple.
 
-`/currentclass` returns the current class(es)
-
-`/nextclass` returns the next class(es)
-
-`/remainingtime` returns the remainingtime for each respective currentclass
-
 `/today` returns the daily schedule
+
+`/week` returns the weekly schedule
+
+`/week/{date}` returns the weekly forcast for the week of that day.
 
 ## Authentication
 
 More features of bearserver are behind an authentication layer. These are usually `POST` requests.
 
-`/authenticate` will assign a JWT token based on the secret in `config.js`. It is IP based.
+`/auth` will assign a JWT token based on the secret in `config.js`. It is IP based.
 
 If authenticated with the above method, the following commands are avaliable
 
@@ -47,31 +45,21 @@ Example input schedule:
 ```
 
 
-`/deleteschedule` takes the date of a schedule and deletes all entries with a matching date.
-
-
-## User Data (WIP)
-Some user data is stored on the database. This data can be used to assign custom names to classes, e.g `Block 7` to `Science`.
-
-To access this data, `/getuser` takes a user ID and returns any data associated with it. A User ID can be anything from an email address to a username. The server will respond with a JWT token used to authenticate when storing the data again (i.e. editing).
-
-`/storeuser` is the follow up, taking a user ID, token, and schedule data.
+`/modifyschedule` is a direct write to the specials array. Use for deletions or other edits.
 
 
 
 ## Formatting
 
-The schedule is an array of objects `classes`, which contains the data for that class. Most notable is the `key_name`, which contains information on the ordering and priority of the class.
+The schedule is an array of object `classes`, which contain the data for that class. Most notable is the `key_name`, which contains information on the ordering and priority of the class.
 
 Example class object:
 ```json
 {
   "key_name":"4-010",
   "name":"Block 1",
-  "shour":9,
-  "smin":50,
-  "ehour":10,
-  "emin":55,
+  "stime": "9:50",
+  "etime": "10:55",
   "day":4
 }
 ```
@@ -91,14 +79,6 @@ As of now, the only important thing in key_name is the last number, which determ
 ```
 Lunch split data can be 0, meaning no split, 1, for first schedule, and 2 for second schedule. All classes that are split should have the same split applied. See example database for example.
 
-Userdata is used to assign custom names to classes. Currently it is done based on class name, but in the future the key_name may be used instead.
-
-```json
-{
-  "Block 7": "Science",
-  "Block 3": "Math"
-}
-```
 
 
 ## License
