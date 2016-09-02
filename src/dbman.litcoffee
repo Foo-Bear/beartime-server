@@ -11,6 +11,7 @@ Load required modules.
     config = require('../config.js')
     fs = require('fs')
     async = require 'async'
+    Promise = require 'bluebird'
     console.log 'Starting Database Manager...'
 
     config.connect 'dbman'
@@ -67,18 +68,20 @@ call a callback for async stuff.
 
 parserWeek basically just runs parserDay for every day in the week. It looks ugly, but anti-patterns of async are never fun.
 
-    parserWeek = ->
+    parserWeek = (callback) ->
       week = []
       async.eachSeries [1..5], 
-        (item, callback) ->
-          parserDay moment().day(item), (today) -> week[item] = today; callback()
-        () -> redis.set 'week', JSON.stringify week
-
+        (item, call) ->
+          parserDay moment().day(item), (today) -> week[item] = today; call()
+        () -> 
+          if callback
+            callback week
+      return week
 Here we define a job to be run every day. This job gets the daily schedule for today, and sets it.
 
     dayjob = scheduler.scheduleJob('0 0 * * *', ->
       console.log 'Running Daily Update'
-      parserDay().then (today) -> redis.set 'today', JSON.stringify(today)
+      parserDay().then (today) -> redis.set 'today', JSON.stringify today
       return
     )
 
@@ -86,7 +89,7 @@ This is the same as above except for being weekly. I put the hard database updat
 
     weekjob = scheduler.scheduleJob('0 0 0 * *', ->
       update()
-      parserWeek()
+      parserWeek((week) -> redis.set 'week', JSON.stringify week)
       return
     )
 
@@ -95,7 +98,7 @@ Those timers update at midnight every day/week, so we should start them now just
     weekjob.invoke()
     dayjob.invoke()
 
-Subscribe to messages sent by a redis client. useful for development.
+Subscribe to messages sent by a redis client. useful for development. Runs every function and updates.
 
     redislistener.on 'message', (channel, message) ->
       if message == 'update' and channel == 'dbman'
@@ -103,3 +106,13 @@ Subscribe to messages sent by a redis client. useful for development.
         dayjob.invoke()
         weekjob.invoke()
       return
+
+
+###Exporting.
+Due to the nature of this code, combined with some of the communication problems encountered by redis pub/sub, we export the two main functions.
+
+    module.exports.parserDay = parserDay
+    module.exports.parserWeek = parserWeek
+
+
+
