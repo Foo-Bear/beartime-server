@@ -1,370 +1,344 @@
 {
-  "treeroot": {
-    "1": [
-      {
-        "key_name": "1-000",
-        "name": "Homeroom",
-        "stime": "7:50",
-        "etime": "7:55",
-        "day": 1
-      }, {
-        "key_name": "1-010",
-        "name": "Block 1",
-        "number": 1,
-        "stime": "8:00",
-        "etime": "8:45",
-        "day": 1
-      }, {
-        "key_name": "1-020",
-        "name": "Block 2",
-        "number": 2,
-        "stime": "8:50",
-        "etime": "9:35",
-        "day": 1
-      }, {
-        "key_name": "1-030",
-        "name": "Tutorial",
-        "stime": "9:40",
-        "etime": "10:15",
-        "day": 1
-      }, {
-        "key_name": "1-040",
-        "name": "Block 3",
-        "number": 3,
-        "stime": "10:20",
-        "etime": "11:50",
-        "day": 1
-      }, {
-        "key_name": "1-051",
-        "name": "1st Lunch",
-        "stime": "11:10",
-        "etime": "11:45",
-        "day": 1
-      }, {
-        "key_name": "1-051",
-        "name": "Block 4B",
-        "number": 4,
-        "stime": "11:45",
-        "etime": "12:30",
-        "day": 1
-      }, {
-        "key_name": "1-052",
-        "name": "Block 4A",
-        "number": 4,
-        "stime": "11:10",
-        "etime": "11:55",
-        "day": 1
-      }, {
-        "key_name": "1-052",
-        "name": "2nd Lunch",
-        "stime": "11:55",
-        "etime": "12:30",
-        "day": 1
-      }, {
-        "key_name": "1-060",
-        "name": "Block 5",
-        "number": 5,
-        "stime": "12:35",
-        "etime": "13:20",
-        "day": 1
-      }, {
-        "key_name": "1-070",
-        "name": "Block 6",
-        "number": 6,
-        "stime": "13:25",
-        "etime": "14:10",
-        "day": 1
-      }, {
-        "key_name": "1-080",
-        "name": "Block 7",
-        "number": 7,
-        "stime": "14:15",
-        "etime": "15:00",
-        "day": 1
-    }], 
-    "2": [
-      {
-        "key_name": "2-000",
-        "name": "Homeroom",
-        "stime": "7:50",
-        "etime": "7:55",
-        "day": 2
-      }, {
-        "key_name": "2-010",
-        "name": "Block 2",
-        "number": 2,
-        "stime": "8:00",
-        "etime": "9:50",
-        "day": 2
-      }, {
-        "key_name": "2-020",
-        "name": "Assembly",
-        "stime": "9:10",
-        "etime": "9:45",
-        "day": 2
-      }, {
-        "key_name": "2-030",
-        "name": "Block 4",
-        "number": 4,
-        "stime": "9:50",
-        "etime": "10:55",
-        "day": 2
-      }, {
-        "key_name": "2-041",
-        "name": "1st Lunch",
-        "stime": "11:00",
-        "etime": "11:35",
-        "day": 2
-      }, {
-        "key_name": "2-041",
-        "name": "Block 3B",
-        "number": 3,
-        "stime": "11:35",
-        "etime": "12:40",
-        "day": 2
-      }, {
-        "key_name": "2-042",
-        "name": "Block 3A",
-        "number": 3,
-        "stime": "11:00",
-        "etime": "12:50",
-        "day": 2
-      }, {
-        "key_name": "2-042",
-        "name": "2nd Lunch",
-        "stime": "12:50",
-        "etime": "12:40",
-        "day": 2
-      }, {
-        "key_name": "2-050",
-        "name": "Block 7",
-        "number": 7,
-        "stime": "12:45",
-        "etime": "13:50",
-        "day": 2
-      }, {
-        "key_name": "2-060",
-        "name": "Block 6",
-        "number": 6,
-        "stime": "13:55",
-        "etime": "15:00",
-        "day": 2
-      }, {
-        "key_name": "3-000",
-        "name": "Homeroom",
-        "stime": "8:20",
-        "etime": "8:25",
-        "day": 3
-    }], 
-    "3": [
-      {
-        "key_name": "3-010",
-        "name": "Block 1",
-        "number": 1,
-        "stime": "8:30",
-        "etime": "9:35",
-        "day": 3
-      }, {
-        "key_name": "3-020",
-        "name": "Advisory",
-        "stime": "9:40",
-        "etime": "10:10",
-        "day": 3
-      }, {
-        "key_name": "3-030",
-        "name": "Block 2",
-        "number": 2,
-        "stime": "10:15",
-        "etime": "11:20",
-        "day": 3
-      },
-      {
-        "key_name": "3-041",
-        "name": "1st Lunch",
-        "stime": "11:25",
-        "etime": "12:00",
-        "day": 3
-      }, {
-        "key_name": "3-041",
-        "name": "Block 5B",
-        "number": 5,
-        "stime": "12:00",
-        "etime": "13:50",
-        "day": 3
-      }, {
-        "key_name": "3-042",
-        "name": "Block 5A",
-        "number": 5,
-        "stime": "11:25",
-        "etime": "12:30",
-        "day": 3
-      }, {
-        "key_name": "3-042",
-        "name": "2nd Lunch",
-        "stime": "12:30",
-        "etime": "13:50",
-        "day": 3
-      }, {
-        "key_name": "3-050",
-        "name": "TASC",
-        "stime": "13:10",
-        "etime": "13:50",
-        "day": 3
-      }, {
-        "key_name": "3-060",
-        "name": "Block 6",
-        "number": 6,
-        "stime": "13:55",
-        "etime": "15:00",
-        "day": 3
-    }], 
-    "4": [
-      {
-        "key_name": "4-000",
-        "name": "Homeroom",
-        "stime": "7:50",
-        "etime": "7:55",
-        "day": 4
-      }, {
-        "key_name": "4-010",
-        "name": "Block 3",
-        "number": 3,
-        "stime": "8:00",
-        "etime": "9:50",
-        "day": 4
-      }, {
-        "key_name": "4-020",
-        "name": "Assembly",
-        "stime": "9:10",
-        "etime": "9:45",
-        "day": 4
-      }, {
-        "key_name": "4-030",
-        "name": "Block 1",
-        "number": 1,
-        "stime": "9:50",
-        "etime": "10:55",
-        "day": 4
-      },  
-
-      {
-        "key_name": "4-041",
-        "name": "1st Lunch",
-        "stime": "11:00",
-        "etime": "11:35",
-        "day": 4
-      }, {
-        "key_name": "4-041",
-        "name": "Block 4B",
-        "number": 4,
-        "stime": "11:35",
-        "etime": "12:40",
-        "day": 4
-      }, {
-        "key_name": "4-042",
-        "name": "Block 4A",
-        "number": 4,
-        "stime": "11:00",
-        "etime": "12:50",
-        "day": 4
-      }, {
-        "key_name": "4-042",
-        "name": "2nd Lunch",
-        "stime": "12:50",
-        "etime": "12:40",
-        "day": 4
-      }, {
-        "key_name": "4-050",
-        "name": "Block 5",
-        "number": 5,
-        "stime": "12:45",
-        "etime": "13:50",
-        "day": 4
-      }, {
-        "key_name": "4-060",
-        "name": "Block 7",
-        "number": 7,
-        "stime": "13:55",
-        "etime": "15:00",
-        "day": 4
-    }], 
-    "5":[
-      {
-        "key_name": "5-000",
-        "name": "Homeroom",
-        "stime": "8:20",
-        "etime": "8:25",
-        "day": 5
-      }, {
-        "key_name": "5-010",
-        "name": "Block 2",
-        "number": 2,
-        "stime": "8:30",
-        "etime": "9:15",
-        "day": 5
-      }, {
-        "key_name": "5-020",
-        "name": "Block 1",
-        "number": 1,
-        "stime": "9:20",
-        "etime": "10:50",
-        "day": 5
-      }, {
-        "key_name": "5-030",
-        "name": "Block 3",
-        "number": 3,
-        "stime": "10:10",
-        "etime": "10:55",
-        "day": 5
-      },  
-
-      {
-        "key_name": "5-041",
-        "name": "1st Lunch",
-        "stime": "11:00",
-        "etime": "11:45",
-        "day": 5
-      }, {
-        "key_name": "5-041",
-        "name": "Block 4B",
-        "number": 4,
-        "stime": "11:45",
-        "etime": "12:30",
-        "day": 5
-      }, {
-        "key_name": "5-042",
-        "name": "Block 4A",
-        "number": 4,
-        "stime": "11:00",
-        "etime": "11:45",
-        "day": 5
-      }, {
-        "key_name": "5-042",
-        "name": "2nd Lunch",
-        "stime": "11:45",
-        "etime": "12:30",
-        "day": 5
-      }, {
-        "key_name": "5-050",
-        "name": "Block 6",
-        "number": 6,
-        "stime": "12:35",
-        "etime": "13:20",
-        "day": 5
-      }, {
-        "key_name": "5-060",
-        "name": "Block 7",
-        "number": 7,
-        "stime": "13:25",
-        "etime": "14:10",
-        "day": 5
-      }, {
-        "key_name": "5-070",
-        "name": "Block 5",
-        "number": 5,
-        "stime": "14:15",
-        "etime": "15:00",
-        "day": 5
-    }]
-  }
+  "Monday": [
+    {
+      "name": "Advisory",
+      "start": "8:00am",
+      "end": "8:05am",
+      "duration": 5
+    },
+    {
+      "number": 1,
+      "start": "8:10am",
+      "end": "8:55am",
+      "duration": 45
+    },
+    {
+      "number": 2,
+      "start": "9:00am",
+      "end": "9:45am",
+      "duration": 45
+    },
+    {
+      "name": "Tutorial",
+      "start": "9:50am",
+      "end": "10:15am",
+      "duration": 25
+    },
+    {
+      "number": 3,
+      "start": "10:20am",
+      "end": "11:05am",
+      "duration": 45
+    },
+    {
+      "number": 4,
+      "lunch": 2,
+      "start": "11:10am",
+      "end": "11:55am",
+      "duration": 45
+    },
+    {
+      "name": "Lunch",
+      "lunch": 1,
+      "start": "11:10am",
+      "end": "11:40am",
+      "duration": 30
+    },
+    {
+      "number": 4,
+      "lunch": 1,
+      "start": "11:45am",
+      "end": "12:30pm",
+      "duration": 45
+    },
+    {
+      "name": "Lunch",
+      "lunch": 2,
+      "start": "12:00pm",
+      "end": "12:30pm",
+      "duration": 30
+    },
+    {
+      "number": 5,
+      "start": "12:35pm",
+      "end": "1:20pm",
+      "duration": 45
+    },
+    {
+      "number": 6,
+      "start": "1:25pm",
+      "end": "2:10pm",
+      "duration": 45
+    },
+    {
+      "number": 7,
+      "start": "2:15pm",
+      "end": "3:00pm",
+      "duration": 45
+    }
+  ],
+  "Tuesday": [
+    {
+      "number": 1,
+      "start": "8:00am",
+      "end": "9:05am",
+      "duration": 65
+    },
+    {
+      "name": "Assembly",
+      "start": "9:10am",
+      "end": "9:40am",
+      "duration": 30
+    },
+    {
+      "name": "Advisory",
+      "start": "9:45am",
+      "end": "9:50am",
+      "duration": 5
+    },
+    {
+      "number": 4,
+      "start": "9:55am",
+      "end": "11:00am",
+      "duration": 65
+    },
+    {
+      "number": 5,
+      "lunch": 2,
+      "start": "11:05am",
+      "end": "12:10pm",
+      "duration": 65
+    },
+    {
+      "name": "Lunch",
+      "lunch": 1,
+      "start": "11:05am",
+      "end": "11:30am",
+      "duration": 25
+    },
+    {
+      "number": 5,
+      "lunch": 1,
+      "start": "11:35am",
+      "end": "12:40pm",
+      "duration": 65
+    },
+    {
+      "name": "Lunch",
+      "lunch": 2,
+      "start": "12:15pm",
+      "end": "12:40pm",
+      "duration": 25
+    },
+    {
+      "number": 7,
+      "start": "12:45pm",
+      "end": "1:50pm",
+      "duration": 65
+    },
+    {
+      "number": 6,
+      "start": "1:55pm",
+      "end": "3:00pm",
+      "duration": 65
+    }
+  ],
+  "Wednesday": [
+    {
+      "number": 3,
+      "start": "8:30am",
+      "end": "9:35am",
+      "duration": 65
+    },
+    {
+      "name": "Grade Meeting",
+      "start": "9:40am",
+      "end": "10:15am",
+      "duration": 35
+    },
+    {
+      "number": 2,
+      "start": "10:20am",
+      "end": "11:25am",
+      "duration": 65
+    },
+    {
+      "number": 4,
+      "lunch": 2,
+      "start": "11:30am",
+      "end": "12:35pm",
+      "duration": 65
+    },
+    {
+      "name": "Lunch",
+      "lunch": 1,
+      "start": "11:30am",
+      "end": "12:00pm",
+      "duration": 30
+    },
+    {
+      "number": 4,
+      "lunch": 1,
+      "start": "12:05pm",
+      "end": "1:10pm",
+      "duration": 65
+    },
+    {
+      "name": "Lunch",
+      "lunch": 2,
+      "start": "12:40pm",
+      "end": "1:10pm",
+      "duration": 30
+    },
+    {
+      "name": "TASC",
+      "start": "1:15pm",
+      "end": "1:50pm",
+      "duration": 35
+    },
+    {
+      "number": 5,
+      "start": "1:55pm",
+      "end": "3:00pm",
+      "duration": 65
+    }
+  ],
+  "Thursday": [
+    {
+      "number": 2,
+      "start": "8:00am",
+      "end": "9:05am",
+      "duration": 65
+    },
+    {
+      "name": "Assembly",
+      "start": "9:10am",
+      "end": "9:40am",
+      "duration": 30
+    },
+    {
+      "name": "Advisory",
+      "start": "9:45am",
+      "end": "9:50am",
+      "duration": 5
+    },
+    {
+      "number": 1,
+      "start": "9:55am",
+      "end": "11:00am",
+      "duration": 65
+    },
+    {
+      "number": 3,
+      "lunch": 2,
+      "start": "11:05am",
+      "end": "12:10pm",
+      "duration": 65
+    },
+    {
+      "name": "Lunch",
+      "lunch": 1,
+      "start": "11:05am",
+      "end": "11:30am",
+      "duration": 25
+    },
+    {
+      "number": 3,
+      "lunch": 1,
+      "start": "11:35am",
+      "end": "12:40pm",
+      "duration": 65
+    },
+    {
+      "name": "Lunch",
+      "lunch": 2,
+      "start": "12:15pm",
+      "end": "12:40pm",
+      "duration": 25
+    },
+    {
+      "number": 6,
+      "start": "12:45pm",
+      "end": "1:50pm",
+      "duration": 65
+    },
+    {
+      "number": 7,
+      "start": "1:55pm",
+      "end": "3:00pm",
+      "duration": 65
+    }
+  ],
+  "Friday": [
+    {
+      "name": "Advisory",
+      "start": "8:30am",
+      "end": "8:35am",
+      "duration": 5
+    },
+    {
+      "number": 2,
+      "start": "8:40am",
+      "end": "9:25am",
+      "duration": 45
+    },
+    {
+      "number": 1,
+      "start": "9:30am",
+      "end": "10:15am",
+      "duration": 45
+    },
+    {
+      "number": 3,
+      "start": "10:20am",
+      "end": "11:05am",
+      "duration": 45
+    },
+    {
+      "number": 4,
+      "lunch": 2,
+      "start": "11:10am",
+      "end": "11:55am",
+      "duration": 45
+    },
+    {
+      "name": "Lunch",
+      "lunch": 1,
+      "start": "11:10am",
+      "end": "11:40am",
+      "duration": 30
+    },
+    {
+      "number": 4,
+      "lunch": 1,
+      "start": "11:45am",
+      "end": "12:30pm",
+      "duration": 45
+    },
+    {
+      "name": "Lunch",
+      "lunch": 2,
+      "start": "12:00pm",
+      "end": "12:30pm",
+      "duration": 30
+    },
+    {
+      "number": 5,
+      "start": "12:35pm",
+      "end": "1:20pm",
+      "duration": 45
+    },
+    {
+      "number": 7,
+      "start": "1:25pm",
+      "end": "2:10pm",
+      "duration": 45
+    },
+    {
+      "number": 6,
+      "start": "2:15pm",
+      "end": "3:00pm",
+      "duration": 45
+    }
+  ]
 }

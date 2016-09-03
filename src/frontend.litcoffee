@@ -8,12 +8,17 @@ First require a bunch of things.
     morgan = require('morgan')
     config = require('../config.js')
     ecstatic = require('ecstatic')
-    app.use morgan('tiny')
-    console.log 'Booting Frontend'
+    if process.env.NODE_ENV != 'test'
+      app.use morgan('tiny')
 
 Connect to the redis server
 
     config.connect 'frontend'
+
+    log = (string) ->
+      if process.env.NODE_ENV != 'test'
+        console.log string
+    log 'Starting Frontend...'
 
 CORS headers.
 

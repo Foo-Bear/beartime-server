@@ -8,14 +8,10 @@ var exports = module.exports = {
 }
 var Ioredis = require('ioredis')
 exports.connect = function (sub) {
-  console.log('Connecting to the Redis Server')
   redis = new Ioredis({
     port: exports.dbport,
     host: exports.dbaddr,
     password: exports.dbpass
-  })
-  redis.on('connect', function (result) {
-    console.log('Connected to redis')
   })
   redis.on('error', function (result) {
     throw result
@@ -24,9 +20,6 @@ exports.connect = function (sub) {
     port:exports.dbport,
     host: exports.dbaddr,
     password: exports.dbpass
-  })
-  redislistener.on('connect', function (result) {
-    console.log('Subscriber connected')
   })
   redislistener.on('error', function (result) {
     throw result
