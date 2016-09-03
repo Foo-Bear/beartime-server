@@ -92,22 +92,22 @@ parserWeek basically just runs parserDay for every day in the week. It looks ugl
 
 Here we define a job to be run every day/week, but only if this is it's own process. This job gets the daily/weekly schedule for today, and sets it. 
 
-      if require.main == module
-        dayjob = scheduler.scheduleJob('0 0 * * *', ->
-          log 'Running Daily Update'
-          parserDay().then (today) -> redis.set 'today', JSON.stringify today
-          return
-        )
-        weekjob = scheduler.scheduleJob('0 * * * *', ->
-          parserWeek().then (week) -> redis.set 'week', JSON.stringify week
-          return
-        )
+    if require.main == module
+      dayjob = scheduler.scheduleJob('0 0 * * *', ->
+        log 'Running Daily Update'
+        parserDay().then (today) -> redis.set 'today', JSON.stringify today
+        return
+      )
+      weekjob = scheduler.scheduleJob('0 * * * *', ->
+        parserWeek().then (week) -> redis.set 'week', JSON.stringify week
+        return
+      )
 
 
 Those timers update at midnight every day/week, so we should start them now just to make them load something. Unless we are testing.
     
-        weekjob.invoke()
-        dayjob.invoke()
+      weekjob.invoke()
+      dayjob.invoke()
 
 We define a third timer to update the hardcoded database.
     
