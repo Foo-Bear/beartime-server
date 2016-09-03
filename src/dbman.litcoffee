@@ -40,7 +40,7 @@ Date must be in YYYY-MM-DD format.
 
     parserDay = (date) ->
       new Promise (resolve, reject) ->
-        log 'parsing a day: ' + moment(date if date?).format('YYYY-MM-DD')
+        log 'parsing a day: ' + moment(date if date?, 'YYYY-MM-DD').format('YYYY-MM-DD')
 
 Read the generic schedule for that day. (if one is supplied)
 
@@ -106,8 +106,8 @@ Here we define a job to be run every day/week, but only if this is it's own proc
 
 Those timers update at midnight every day/week, so we should start them now just to make them load something. Unless we are testing.
     
-      weekjob.invoke()
-      dayjob.invoke()
+        weekjob.invoke()
+        dayjob.invoke()
 
 We define a third timer to update the hardcoded database.
     
