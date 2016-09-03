@@ -10,11 +10,15 @@ The Bearserver backend is the API for the bearstatus web interface. Bearserver p
 
 Using bearserver to get information is very simple.
 
-`/today` returns the daily schedule
+`/day` returns today's schedule
+
+`/day/{date}` returns the schedule of that day.
 
 `/week` returns the weekly schedule
 
 `/week/{date}` returns the weekly forcast for the week of that day.
+
+All `{date}` blocks are optional, but must take a day format of 'YYYY-MM-DD'
 
 ## Authentication
 
@@ -29,17 +33,14 @@ If authenticated with the above method, the following commands are avaliable
 Example input schedule:
 ```json
 {
-  "name": "optional name for reference",
-  "date": "2105-9-23",
+  "name": "Advisory Only!",
+  "date": "2016-9-23",
   "schedule": [{
-      "key_name":"1-050",
-      "name":"Block 1",
-      "shour":9,
-      "smin":50,
-      "ehour":10,
-      "emin":55,
-      "day":4
-  }]
+      "name": "Advisory",
+      "start": "8:00am",
+      "end": "8:05am",
+      "duration": 5
+    }]
 }
 
 ```
@@ -51,33 +52,21 @@ Example input schedule:
 
 ## Formatting
 
-The schedule is an array of object `classes`, which contain the data for that class. Most notable is the `key_name`, which contains information on the ordering and priority of the class.
+The schedule is an array of object `classes`, which contain the data for that class.
 
 Example class object:
+
+Note: a class has *either* a name or a number, not both. They are both here for example.
+
 ```json
 {
-  "key_name":"4-010",
-  "name":"Block 1",
-  "stime": "9:50",
-  "etime": "10:55",
-  "day":4
+  "name": "Advisory", # for non-class blocks.
+  "number": 1, # for class blocks. 1 = Block 1
+  "start": "8:00am",
+  "end": "8:05am",
+  "duration": 5
 }
 ```
-
-Info on key_name:
-
-As of now, the only important thing in key_name is the last number, which determines the lunch splits.
-
-```text
-
-1 -> Day of the class, Monday is 1. Not used.
--
-7 -> Class id. For block 7, would be 7
-5 -> Class Number, in order. Not used.
-2 -> Lunch split data.
-
-```
-Lunch split data can be 0, meaning no split, 1, for first schedule, and 2 for second schedule. All classes that are split should have the same split applied. See example database for example.
 
 
 
