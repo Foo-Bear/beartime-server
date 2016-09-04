@@ -1,5 +1,5 @@
-##Specials Manager
-####Processes today's schedule
+## Specials Manager
+#### Processes today's schedule
 import all features. Not very many. We also have a function for testing JSON.
 
     config = require('../config.js')

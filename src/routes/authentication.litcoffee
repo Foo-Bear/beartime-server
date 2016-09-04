@@ -1,5 +1,5 @@
-##Routes - Authentication
-####Requests that require higher authentication go here.
+## Routes - Authentication
+#### Requests that require higher authentication go here.
 
 Start by exporting everything (required for requiring)
 

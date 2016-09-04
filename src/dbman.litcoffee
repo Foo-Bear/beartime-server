@@ -1,5 +1,5 @@
-##Database manager microservice
-#####Does the actual file writing and parsing
+## Database manager microservice
+##### Does the actual file writing and parsing
 
 The difference between dbman and dataprocessor is that dbman is designed to show things about the *schedule* and not the current events.
 
@@ -127,7 +127,7 @@ Subscribe to messages sent by a redis client. useful for development. Runs every
       return
 
 
-###Exporting.
+### Exporting.
 Due to the nature of this code, combined with some of the communication problems encountered by redis pub/sub, we export the two main functions.
 
     module.exports.parserDay = parserDay
