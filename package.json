@@ -2,10 +2,10 @@
   "name": "bearserver",
   "version": "1.0.0",
   "description": "A modular server system",
-  "main": "app.js",
+  "main": "cake host",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start processes.json"
+    "test": "mocha --compilers coffee:coffee-script/register",
+    "start": "cake host"
   },
   "author": "Saji Champlin",
   "license": "MIT",
@@ -27,6 +27,11 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "coffee-script": "^1.10.0",
+    "docco": "*",
+    "mocha": "^3.0.2",
+    "walk" : "*",
     "uglify-js": "^2.7.3"
   }
 }
