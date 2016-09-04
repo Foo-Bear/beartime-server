@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>schedules.litcoffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>schedules.litcoffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>##Routes - Schedules</p>
+<p>####Most scheduling stuff that does not need authentication should go here</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">do</span> -&gt;
+  express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>)
+  app = express()
+  config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../config.js'</span>)
+  dbman = <span class="hljs-built_in">require</span> <span class="hljs-string">'../dbman'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Get the current schedule. returns an array of classes as defined in readme.
+There’s also the date optional param which changes the functionality entirely and makes custom calls.
+Perhaps requiring dbman exported functions would be of use.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  app.get <span class="hljs-string">'/day/:date*?'</span>, <span class="hljs-function"><span class="hljs-params">(req, res)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>If there is a date attached, lets use that instead. </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> req.params.date?
+      dbman.parserDay(req.params.date).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">(day)</span> -&gt;</span> res.send day).<span class="hljs-keyword">catch</span>(<span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span> res.send err)
+
+    <span class="hljs-keyword">else</span>
+      redis.get(<span class="hljs-string">'today'</span>).<span class="hljs-keyword">then</span> (err, result) -&gt;
+        <span class="hljs-keyword">if</span> err
+          res.send err
+        <span class="hljs-keyword">else</span>
+          res.send result</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Get the list of all specials. Pretty useless.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  app.get <span class="hljs-string">'/specialschedule'</span>, <span class="hljs-function"><span class="hljs-params">(req, res)</span> -&gt;</span>
+    redis.get <span class="hljs-string">'specials'</span>, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> err
+        res.send err
+      <span class="hljs-keyword">else</span>
+        res.send result</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Get the weekly schedule.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  app.get <span class="hljs-string">'/week/:date*?'</span>, <span class="hljs-function"><span class="hljs-params">(req, res)</span> -&gt;</span>
+
+    <span class="hljs-keyword">if</span> req.params.date?
+      dbman.parserWeek(req.params.date).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">(week)</span> -&gt;</span> res.send week).<span class="hljs-keyword">catch</span>(<span class="hljs-function"><span class="hljs-params">(err)</span> -&gt;</span> res.send err)
+
+    redis.get <span class="hljs-string">'week'</span>, <span class="hljs-function"><span class="hljs-params">(err, result)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> err
+        res.send err
+      res.send result
+  <span class="hljs-keyword">return</span> app</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

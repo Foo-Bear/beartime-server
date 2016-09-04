@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>specialsman.litcoffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>specialsman.litcoffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>##Specials Manager</p>
+<p>####Processes today’s schedule
+import all features. Not very many. We also have a function for testing JSON.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>config = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config.js'</span>)<span class="hljs-function">
+
+<span class="hljs-title">IsJsonString</span> = <span class="hljs-params">(str)</span> -&gt;</span>
+  <span class="hljs-keyword">try</span>
+    JSON.parse str
+  <span class="hljs-keyword">catch</span> e
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  <span class="hljs-literal">true</span>
+
+<span class="hljs-built_in">console</span>.log <span class="hljs-string">'Starting Specials Manager...'</span>
+config.connect <span class="hljs-string">'specials'</span>
+
+
+redislistener.<span class="hljs-literal">on</span> <span class="hljs-string">'message'</span>, <span class="hljs-function"><span class="hljs-params">(channel, message)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>When we get a message, parse it through our parser.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-built_in">console</span>.log <span class="hljs-string">'got message'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Load the current specials array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  redis.get <span class="hljs-string">'specials'</span>, <span class="hljs-function"><span class="hljs-params">(err, res)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> err
+      <span class="hljs-built_in">console</span>.log err</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Parse and verify JSON message.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    specials = JSON.parse(res)
+    input = JSON.parse(message)
+    <span class="hljs-keyword">if</span> IsJsonString(message)
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">'got a new special'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Verify that the specials global is an array. Otherwise, refresh it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> Array.isArray(specials) == <span class="hljs-literal">false</span>
+        specials = []
+        <span class="hljs-built_in">console</span>.log <span class="hljs-string">'specials is bad, restarting'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Do some typechecking to make sure that no problems occur later.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> input.date == <span class="hljs-string">'string'</span> <span class="hljs-keyword">and</span> Array.isArray(input.schedule)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>It’s all good at this point, so go ahead and add it to the array and set the new global.
+Also update the dbman, because a new special might affect schedules.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        specials.push JSON.parse(message)
+        redis.set <span class="hljs-string">'specials'</span>, JSON.stringify(specials)
+        redis.publish <span class="hljs-string">'dbman'</span>, <span class="hljs-string">'update'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>cleanup</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">else</span>
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">'message invalid json'</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
