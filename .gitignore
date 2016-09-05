@@ -1,15 +1,5 @@
 node_modules/*
 modules/*
+docs/*
 *.log
-
-modules/dataprocessor.js
-
-modules/dataprocessor.js
-
-modules/dataprocessor.js
-
-modules/dbman.js
-
-Gulpfile.js
-
 .DS_Store
