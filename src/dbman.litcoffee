@@ -40,13 +40,15 @@ Date must be in YYYY-MM-DD format.
 
     parserDay = (date) ->
       new Promise (resolve, reject) ->
-        log 'parsing a day: ' + moment(date if date?, 'YYYY-MM-DD').format('YYYY-MM-DD')
+
 
 Read the generic schedule for that day. (if one is supplied)
 
         if date?
+          log 'parsing a day: ' + moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD') + "raw: #{date}"
           today = basejson[moment(date, 'YYYY-MM-DD').format('dddd')]
         else
+          log 'parsing a day: ' + moment().format('YYYY-MM-DD')
           today = basejson[moment().format('dddd')]
 
 
@@ -81,13 +83,16 @@ parserWeek basically just runs parserDay for every day in the week. It looks ugl
         async.each [1..5],
           (item, call) ->
             eachCallback = (today) ->
-              if date? then week[moment(date, 'YYYY-MM-DD').day(item).format('dddd')] = today
-              else week[moment().day(item).format('dddd')] = today
+              if date? 
+                week[moment(date, 'YYYY-MM-DD').day(item).format('dddd')] = today
+              else 
+                week[moment().day(item).format('dddd')] = today
               call()
             
-            if date? then parserDay(moment(date, 'YYYY-MM-DD').day(item).format('YYYY-MM-DD')).then eachCallback
-
-            else parserDay(moment().day(item).format('YYYY-MM-DD')).then eachCallback
+            if date?
+              parserDay(moment(date, 'YYYY-MM-DD').day(item).format('YYYY-MM-DD')).then eachCallback
+            else 
+              parserDay(moment().day(item).format('YYYY-MM-DD')).then eachCallback
           () -> resolve week
 
 Here we define a job to be run every day/week, but only if this is it's own process. This job gets the daily/weekly schedule for today, and sets it. 
