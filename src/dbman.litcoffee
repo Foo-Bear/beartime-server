@@ -84,11 +84,11 @@ parserWeek basically just runs parserDay for every day in the week. It looks ugl
           (item, call) ->
             eachCallback = (today) ->
               if date? 
-                week[moment(date, 'YYYY-MM-DD').day(item).format('dddd')] = today
+                week[moment(date, 'YYYY-MM-DD').day(item).format('YYYY-MM-DD')] = today
               else 
-                week[moment().day(item).format('dddd')] = today
+                week[moment().day(item).format('YYYY-MM-DD')] = today
               call()
-            
+              
             if date?
               parserDay(moment(date, 'YYYY-MM-DD').day(item).format('YYYY-MM-DD')).then eachCallback
             else 
