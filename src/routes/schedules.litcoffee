@@ -42,9 +42,10 @@ Get the weekly schedule.
         if req.params.date?
           dbman.parserWeek(req.params.date).then((week) -> res.send week).catch((err) -> res.send err)
 
-        redis.get 'week', (err, result) ->
-          if err
-            res.send err
-          res.send result
+        else
+          redis.get 'week', (err, result) ->
+            if err
+              res.send err
+            res.send result
       return app
 
