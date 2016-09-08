@@ -1,7 +1,6 @@
 ## Database manager microservice
 ##### Does the actual file writing and parsing
 
-The difference between dbman and dataprocessor is that dbman is designed to show things about the *schedule* and not the current events.
 
 Load required modules.
 
@@ -75,7 +74,8 @@ if there's a special for today, load it instead of the generic schedule
             today = null
           resolve today
 
-parserWeek basically just runs parserDay for every day in the week. It looks ugly, but anti-patterns of async are never fun.
+parserWeek basically just runs parserDay for every day in the week. 
+It looks ugly, but anti-patterns of async are never fun.
 
     parserWeek = (date) ->
       new Promise (resolve, reject) ->
@@ -95,7 +95,8 @@ parserWeek basically just runs parserDay for every day in the week. It looks ugl
               parserDay(moment().day(item).format('YYYY-MM-DD')).then eachCallback
           () -> resolve week
 
-Here we define a job to be run every day/week, but only if this is it's own process. This job gets the daily/weekly schedule for today, and sets it. 
+Here we define a job to be run every day/week, but only if this is it's own process. 
+This job gets the daily/weekly schedule for today, and sets it. 
 
     if require.main == module
       dayjob = scheduler.scheduleJob('0 0 * * *', ->
@@ -109,7 +110,8 @@ Here we define a job to be run every day/week, but only if this is it's own proc
       )
 
 
-Those timers update at midnight every day/week, so we should start them now just to make them load something. Unless we are testing.
+Those timers update at midnight every day/week, so we should start them now just to make them load something. 
+Unless we are testing.
     
       weekjob.invoke()
       dayjob.invoke()
@@ -133,7 +135,8 @@ Subscribe to messages sent by a redis client. useful for development. Runs every
 
 
 ### Exporting.
-Due to the nature of this code, combined with some of the communication problems encountered by redis pub/sub, we export the two main functions.
+Due to the nature of this code, combined with some of the communication problems encountered by redis pub/sub, 
+we export the two main functions.
 
     module.exports.parserDay = parserDay
     module.exports.parserWeek = parserWeek
