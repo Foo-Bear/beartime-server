@@ -14,7 +14,7 @@ import all the things we need. There are a lot because this is technically a sta
       jsonParser = bodyParser.json()
       config = require('../../config.js')
       Ioredis = require('ioredis')
-      redis = new Ioredis(config.dbport, config.dbaddr)
+      redis = new Ioredis port: config.dbport, host: config.dbaddr, keyPrefix: 'special:'
       underscore = require('underscore')
 
 
@@ -27,27 +27,52 @@ Enable CORS Headers.
 
 POST request for adding a schedule. First, verify that the client making the request can add things. Verifies by IP and Admin Property.
 
-      app.post '/inputschedule', jsonParser, (req, res) ->
-        if !req.body
+      app.post '/day/:date', jsonParser, (req, res) ->
+        if !req.body || !req.params.date
           res.sendStatus 400
         auth = jwt.verify(req.get('Authorization'), config.secret)
         if auth.admin == true and auth.ip == req.ip
-          redis.publish 'specials', JSON.stringify(req.body)
-          redis.publish 'dbman', 'update'
-          res.sendStatus 201
+          redis.exists(req.params.date).then (result) ->
+            if result
+              res.sendStatus 409
+            else
+              redis.set req.params.date, JSON.stringify req.body.schedule
+              redis.publish 'dbman', 'update'
+              res.sendStatus 201
         else
           res.sendStatus 401
 
-POST request for editing the entire array of specials. The idea behind this is to allow for raw editing of schedules. Also deletion.
+PUT request for editing a special. 
 
-      app.post '/modifyspecial', jsonParser, (req, res) ->
-        if !req.body
+      app.put '/day/:date', jsonParser, (req, res) ->
+        if !req.body || !req.params.date
           res.sendStatus 400
         auth = jwt.verify(req.get('Authorization'), config.secret)
         if auth.admin == true and auth.ip == req.ip
-          redis.set 'specials', JSON.stringify(req.body)
-          redis.publish 'dbman', 'update'
-          res.sendStatus 201
+          redis.exists(req.params.date).then (result) ->
+            if result
+              redis.set req.params.date, JSON.stringify(req.body)
+              redis.publish 'dbman', 'update'
+              res.sendStatus 200
+            else
+              res.sendStatus 404
+        else
+          res.sendStatus 401
+
+DELETE request for deleting a special.
+
+      app.delete '/day/:date', jsonParser, (req, res) ->
+        if !req.body || !req.params.date
+          res.sendStatus 400
+        auth = jwt.verify(req.get('Authorization'), config.secret)
+        if auth.admin == true and auth.ip == req.ip
+          redis.exists(req.params.date).then (result) ->
+            if result
+              redis.del req.params.date
+              redis.publish 'dbman', 'update'
+              res.sendStatus 200
+            else
+              res.sendStatus 404
         else
           res.sendStatus 401
 

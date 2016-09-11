@@ -44,32 +44,25 @@ Date must be in YYYY-MM-DD format.
 Read the generic schedule for that day. (if one is supplied)
 
         if date?
-          log 'parsing a day: ' + moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD') + "raw: #{date}"
+          log 'parsing a day: ' + moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD')
+          day = moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD')
           today = basejson[moment(date, 'YYYY-MM-DD').format('dddd')]
         else
           log 'parsing a day: ' + moment().format('YYYY-MM-DD')
+          day = moment().format('YYYY-MM-DD')
           today = basejson[moment().format('dddd')]
 
 
 Now we determine if there is a special schedule for today. The async nature
 of this requires some odd code to cope with its many uses. Probably can be refactored.
-
-        todaySpecials = undefined
         
-        redis.get 'specials', (err, res) ->
+        redis.get 'special:' + day, (err, res) ->
           if err
             reject err
 
-Load and filter the big list of specials. 
-
-          specialsArray = JSON.parse res
-          todaySpecials = underscore.find(specialsArray, (item) ->
-            moment(date if date?).isSame moment(item.date, 'YYYY-MM-DD'), 'day'
-          )
-
 if there's a special for today, load it instead of the generic schedule
 
-          if todaySpecials then today = todaySpecials.schedule
+          if res? then today = JSON.parse(res)
           if typeof today == 'undefined'
             today = null
           resolve today

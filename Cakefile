@@ -13,7 +13,6 @@ task 'build', 'build stuff', ->
 task 'host', 'light it up!', ->
   new Service 'dbman'
   new Service 'frontend'
-  new Service 'specialsman'
 
 class Service
   constructor: (name) ->
