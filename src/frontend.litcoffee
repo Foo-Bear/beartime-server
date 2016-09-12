@@ -9,7 +9,7 @@ First require a bunch of things.
     config = require('../config.js')
     ecstatic = require('ecstatic')
     if process.env.NODE_ENV != 'test'
-      app.use morgan('full')
+      app.use morgan('common')
 
 Connect to the redis server
 
