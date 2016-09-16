@@ -22,13 +22,13 @@ log = (string) ->
 log 'Starting Frontend...'
 #CORS headers.
 
-app.use require("connect-datadog")({})
 app.use (req, res, next) ->
   res.header 'Access-Control-Allow-Origin', '*'
   res.header 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'
   next()
 #Import all routes and assign a static route from the config. See those files for details.
 
+app.use require("connect-datadog")({})
 
 app.use '/api', require './routes/schedules'
 app.use '/api', require './routes/authentication'
