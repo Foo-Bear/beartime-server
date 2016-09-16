@@ -28,13 +28,11 @@ More features of bearserver are behind an authentication layer. These are usuall
 
 If authenticated with the above method, the following commands are avaliable
 
-`/inputschedule` takes a JSON object like the following and adds it to the array of specials:
+POST `/day/:date` creates a special for that day.
 
 Example input schedule:
 ```json
 {
-  "name": "Advisory Only!",
-  "date": "2016-9-23",
   "schedule": [{
       "name": "Advisory",
       "start": "8:00am",
@@ -45,8 +43,7 @@ Example input schedule:
 
 ```
 
-
-`/modifyschedule` is a direct write to the specials array. Use for deletions or other edits.
+DEL and PUT also work, deleting and updating respectively. 
 
 
 
@@ -60,8 +57,9 @@ Note: a class has *either* a name or a number, not both. They are both here for 
 
 ```json
 {
-  "name": "Advisory", # for non-class blocks.
-  "number": 1, # for class blocks. 1 = Block 1
+  "name": "Advisory", // for non-class blocks.
+  "number": 1, // for class blocks. 1 = Block 1
+  "lunch": 1, // for lunches only
   "start": "8:00am",
   "end": "8:05am",
   "duration": 5
