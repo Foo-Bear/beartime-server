@@ -55,7 +55,7 @@ Example class object:
 
 Note: a class has *either* a name or a number, not both. They are both here for example.
 
-```json
+```js
 {
   "name": "Advisory", // for non-class blocks.
   "number": 1, // for class blocks. 1 = Block 1
