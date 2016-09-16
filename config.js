@@ -4,7 +4,7 @@ var exports = module.exports = {
   'dbaddr': '127.0.0.1',
   'dbport': '6379',
   'dbpass': 'OQt_lrLSa#?*FnjFD5?bcr7^ODDl%8c&bz&LW4VL0-KmQBi61pgdxfh&XeNlu$WUGL!egs=saZ_!BAAz#Rv^HpliyH7zbb_n9LCF|RHeGH+mrutHiMxJYqlBgw9pqiJO9Hqh?X$Ouc9hUhG^vJ&#=-rvCCrK1i0skgpsmz@lVBBY#|Lphf@f0i^uDnWIAG8icM|TAbHVSn*x2nDFlUawA7bqp$aX!a$4rYLiMjtum1^17Y_eEuT2IL6Ew@H5Abu!',
-  'webroot': '/Users/kschamplin19/Documents/bearweb/public'
+  'webroot': '/Users/kschamplin19/Documents/beartime-web/dist'
 }
 var Ioredis = require('ioredis')
 exports.connect = function (sub) {

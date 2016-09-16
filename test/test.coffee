@@ -29,7 +29,7 @@ describe 'Day schedule', ->
 describe 'Class Object', ->
   day = null
   before ->
-    dbman.parserDay(moment("9-2-2016", "MM-DD-YYYY")).then (res) -> day = res
+    dbman.parserDay('2016-09-16').then (res) -> day = res
 
   it 'is an object', ->
     for item in day
@@ -53,8 +53,7 @@ describe 'Week Schedule', ->
   week = null
 
   before ->
-    dbman.parserWeek().then (res) ->
-      week = res
+    dbman.parserWeek().then (res) -> week = res
 
   it 'gets a response' , ->
     week.should.be.ok
@@ -64,7 +63,7 @@ describe 'Week Schedule', ->
 
   it 'has a day schedule for each school day of the week', ->
     for i in [1..5]
-      week[moment().day(i).format('dddd')].should.be.an 'array'
+      week[moment().day(i).format('YYYY-MM-DD')].should.be.an 'array'
     
     
 frontend = require '../src/frontend'
