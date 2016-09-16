@@ -29,9 +29,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "coffee-script": "^1.10.0",
-    "docco": "*",
     "mocha": "^3.0.2",
-    "walk" : "*",
     "uglify-js": "^2.7.3"
   }
 }
