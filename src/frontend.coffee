@@ -22,7 +22,7 @@ log = (string) ->
 log 'Starting Frontend...'
 #CORS headers.
 
-
+app.use require("connect-datadog")({})
 app.use (req, res, next) ->
   res.header 'Access-Control-Allow-Origin', '*'
   res.header 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'
