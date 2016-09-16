@@ -87,16 +87,12 @@ module.exports = do ->
     redis.get 'auth', (err, result) ->
       if err
         res.send 'An error occured: ' + err
-      if underscore.isEqual(req.body, JSON.parse(result))
-#Assign a JWT key with admin enabled and ip attached for verification.
-
-
+      if underscore.isEqual(req.body, JSON.parse result)
         res.send jwt.sign({
           admin: true
           ip: req.ip
         }, config.secret)
       else
-        res.send req.body
         res.sendStatus 401
 
   app
